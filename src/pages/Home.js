@@ -1,65 +1,68 @@
-import { StyleSheet, View, FlatList, ScrollView } from "react-native";
-import Title from "../../components/Title";
-import Title2 from "../../components/Title2";
-import CustomButton from "../../components/CustomButton";
-import CustomSearch from "../../components/CustomSearch";
-import DiaryWidget from "../../components/DiaryWidget";
-import CustomModal from "../../components/CustomModal";
+import { StyleSheet, View, FlatList, Button } from "react-native";
+import Title from "../components/Title";
+import Title2 from "../components/Title2";
+import CustomButton from "../components/CustomButton";
+import CustomSearch from "../components/CustomSearch";
+import DiaryWidget from "../components/DiaryWidget";
+import CustomModal from "../components/CustomModal";
+import { useNavigation } from "@react-navigation/native";
 
 function Home() {
+  const navigation = useNavigation();
+
   const data = [
     {
       title: "Lettuce grow #1",
       week: "Week 2",
-      imgSrc: require("../../../assets/duck.jpeg"),
+      imgSrc: require("../../assets/duck.jpeg"),
       key: 1,
     },
     {
       title: "Lettuce grow #1",
       week: "Week 2",
-      imgSrc: require("../../../assets/duck.jpeg"),
+      imgSrc: require("../../assets/duck.jpeg"),
       key: 2,
     },
     {
       title: "Lettuce grow #1",
       week: "Week 2",
-      imgSrc: require("../../../assets/duck.jpeg"),
+      imgSrc: require("../../assets/duck.jpeg"),
       key: 3,
     },
     {
       title: "Lettuce grow #1",
       week: "Week 2",
-      imgSrc: require("../../../assets/duck.jpeg"),
+      imgSrc: require("../../assets/duck.jpeg"),
       key: 4,
     },
     {
       title: "Lettuce grow #1",
       week: "Week 2",
-      imgSrc: require("../../../assets/duck.jpeg"),
+      imgSrc: require("../../assets/duck.jpeg"),
       key: 5,
     },
     {
       title: "Lettuce grow #1",
       week: "Week 2",
-      imgSrc: require("../../../assets/duck.jpeg"),
+      imgSrc: require("../../assets/duck.jpeg"),
       key: 6,
     },
     {
       title: "Lettuce grow #1",
       week: "Week 2",
-      imgSrc: require("../../../assets/duck.jpeg"),
+      imgSrc: require("../../assets/duck.jpeg"),
       key: 7,
     },
     {
       title: "Lettuce grow #1",
       week: "Week 2",
-      imgSrc: require("../../../assets/duck.jpeg"),
+      imgSrc: require("../../assets/duck.jpeg"),
       key: 8,
     },
     {
       title: "Lettuce grow #1",
       week: "Week 2",
-      imgSrc: require("../../../assets/duck.jpeg"),
+      imgSrc: require("../../assets/duck.jpeg"),
       key: 9,
     },
   ];
@@ -74,21 +77,34 @@ function Home() {
     );
   }
 
+  function testNavigate() {
+    console.log("testing");
+    navigation.navigate("GerminationScreen");
+  }
+
+  function goToNewDiaryScreen() {
+    navigation.navigate("NewDiary");
+  }
+
+  // const onSignInPressed = () => {
+  //   console.log("GerminationScreen");
+  //   navigation.navigate("GerminationScreen");
+  // };
+
   return (
     <View style={styles.inputContainer}>
       <View style={styles.sectionA}>
+        <CustomButton
+          name="Add new"
+          style={styles.customSearch}
+          goToNewDiaryScreen={goToNewDiaryScreen}
+        />
         <Title title="Home" />
 
         <CustomSearch placeholder="search diaries..." />
 
         <View style={styles.subSectionA}>
           <Title2 title="Your journals" />
-
-          <CustomButton
-            name="Add new"
-            style={styles.customSearch}
-            onPress={openModal}
-          />
         </View>
       </View>
 

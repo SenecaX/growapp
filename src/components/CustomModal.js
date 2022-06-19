@@ -3,8 +3,6 @@ import { StyleSheet, View, Text, Modal } from "react-native";
 function CustomModal(props) {
   const { isVisible, message, textValue } = props;
 
-  console.log("props :>> ", props);
-
   return (
     <View style={styles.container}>
       <Modal

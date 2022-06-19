@@ -1,7 +1,6 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 
 function DiaryWidget(props) {
-  console.log("props :>> ", props);
   return (
     <View style={styles.titleContainer}>
       <View>

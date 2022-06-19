@@ -5,8 +5,15 @@ import Title2 from "../components/Title2";
 import WeekWidget from "../components/WeekWidget";
 import CustomLargeButton from "../components/CustomLargeButton";
 import Tags from "../components/Tags";
+import { useNavigation } from "@react-navigation/native";
 
 function GerminationScreen(props) {
+  const navigation = useNavigation();
+
+  const testNavigate = (data) => {
+    navigation.navigate("Diary");
+  };
+
   return (
     <View style={styles.titleContainer}>
       <View style={styles.sectionA}>
@@ -50,7 +57,7 @@ function GerminationScreen(props) {
         <Title2 title="Photos" />
 
         <View style={styles.photoBtnContainer}>
-          <CustomLargeButton name="Add photos" />
+          <CustomLargeButton name="Add photos" onPress={testNavigate()} />
         </View>
       </View>
 

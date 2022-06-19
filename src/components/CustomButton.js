@@ -1,10 +1,8 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 
 function CustomButton(props) {
-  const onBtnPress = () => {};
-
   return (
-    <Pressable onPress={onBtnPress} style={styles.btn}>
+    <Pressable onPress={props.goToNewDiaryScreen} style={styles.btn}>
       <Text style={styles.text}>{props.name}</Text>
     </Pressable>
   );

@@ -1,19 +1,18 @@
 import { StyleSheet, View, Text } from "react-native";
 import Title from "../components/Title";
-import PlantGrowthStatusForm from "../components/PlantGrowthStatusForm";
 
-function NewDiary(props) {
+function AddNewClass(props) {
   return (
-    <View style={styles.container}>
-      <Title title="New Diary" />
-      <PlantGrowthStatusForm />
+    <View style={styles.titleContainer}>
+      <Title title="add new class" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  titleContainer: {
     padding: 50,
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
@@ -23,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewDiary;
+export default AddNewClass;
