@@ -1,19 +1,20 @@
 import { StyleSheet, View, Text } from "react-native";
 import Title from "../components/Title";
-import PlantGrowthStatusForm from "../components/PlantGrowthStatusForm";
 
 function NewDiary(props) {
   return (
     <View style={styles.container}>
       <Title title="New Diary" />
-      <PlantGrowthStatusForm />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 50,
+    paddingTop: 50,
+    width: "95%",
+    alignItems: "center",
+    // paddingHorizontal: 10,
   },
   title: {
     fontSize: 24,

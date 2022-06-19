@@ -1,10 +1,12 @@
 import { StyleSheet, View, Text } from "react-native";
 import Title from "../components/Title";
+import PlantGrowthStatusForm from "../components/PlantGrowthStatusForm";
 
 function AddNewClass(props) {
   return (
     <View style={styles.titleContainer}>
       <Title title="add new class" />
+      <PlantGrowthStatusForm />
     </View>
   );
 }

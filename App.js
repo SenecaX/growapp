@@ -19,12 +19,11 @@ export default function App() {
 
     <NavigationContainer style={styles.appContainer}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="AddNewClass" component={AddNewClass}></Stack.Screen>
-        <Stack.Screen name="MarkingHome" component={MarkingHome}></Stack.Screen>
-
-        <Stack.Screen name="Marking" component={Marking}></Stack.Screen>
+        <Stack.Screen name="Diary" component={Diary}></Stack.Screen>
 
         <Stack.Screen name="NewDiary" component={NewDiary}></Stack.Screen>
+
+        <Stack.Screen name="AddNewClass" component={AddNewClass}></Stack.Screen>
 
         <Stack.Screen name="Home" component={Home}></Stack.Screen>
 
@@ -32,7 +31,6 @@ export default function App() {
           name="GerminationScreen"
           component={GerminationScreen}
         ></Stack.Screen>
-        <Stack.Screen name="Diary" component={Diary}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,36 +1,48 @@
 import { StyleSheet, View, TextInput, Text } from "react-native";
 import Title from "../components/Title";
 
-function CustomInput({ label, textInputConfig }) {
+function CustomInput({ label, invalid, textInputConfig }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
-      <TextInput {...textInputConfig} style={styles.input} />
+      <Text style={[styles.label, invalid && styles.invalidLabel]}>
+        {label}
+      </Text>
+      <TextInput
+        {...textInputConfig}
+        style={[styles.input, invalid && styles.invalidInput]}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 4,
-    marginVertical: 16,
     flexDirection: "row",
+    // width: "100%",
+    marginBottom: 20,
+    marginTop: 20,
     display: "flex",
-    alignItems: "center",
   },
   label: {
     fontSize: 12,
     color: "#000",
     marginBottom: 4,
-    flex: 1,
+    flex: 2,
   },
   input: {
     backgroundColor: "#EEE",
-    padding: 6,
-    fontSize: 18,
-    borderRadius: 6,
-    color: "black",
-    flex: 3,
+    // padding: 6,
+    // fontSize: 18,
+    // borderRadius: 6,
+    // color: "black",
+    flex: 2,
+  },
+  invalidLabel: {
+    color: "red",
+  },
+  invalidInput: {
+    borderWidth: 1,
+    borderColor: "red",
   },
 });
 

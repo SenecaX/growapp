@@ -11,6 +11,7 @@ import WeekWidget from "../components/WeekWidget";
 
 import DiaryTopInfoWidget from "../components/DiaryTopInfoWidget";
 import CarouselCards from "../components/CarouselCards";
+import PlantGrowthStatusForm from "../components/PlantGrowthStatusForm";
 
 import Carousel from "react-native-snap-carousel";
 
@@ -91,72 +92,73 @@ function Diary(props) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.sectionA}>
-        <Title title="Lettuce Grow #1" />
-        <View style={styles.diaryWidgetContainer}>
-          <View style={styles.diaryWidget}>
-            <DiaryTopInfoWidget
-              src={require("../../assets/icons/room.png")}
-              label="Room type"
-              type="Indoor"
-            />
-          </View>
-
-          <View style={styles.diaryWidget}>
-            <DiaryTopInfoWidget
-              src={require("../../assets/icons/watering.png")}
-              label="Watering"
-              type="Manual"
-            />
-          </View>
-
-          <View>
-            <DiaryTopInfoWidget
-              src={require("../../assets/icons/medium.png")}
-              label="Medium"
-              type="Soil"
-            />
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.sectionB}>
-        <View style={styles.title1}>
-          <Title2 title="Your journals" />
-        </View>
-
-        {/* <WeekWidget title="Week 1" weekType="Ger" /> */}
-
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={data}
-          renderItem={(itemData) => {
-            return (
-              <WeekWidget
-                weekType={itemData.item.weekType}
-                title={itemData.item.title}
-              />
-            );
-          }}
-        />
-
-        <View></View>
-      </View>
-
-      <View style={styles.sectionC}>
-        {/* <View style={styles.gallery}></View> */}
-
-        <SafeAreaView style={styles.container1}>
-          <CarouselCards />
-        </SafeAreaView>
-      </View>
-
       <ScrollView>
+        <View style={styles.sectionA}>
+          <Title title="Lettuce Grow #1" />
+          <View style={styles.diaryWidgetContainer}>
+            <View style={styles.diaryWidget}>
+              <DiaryTopInfoWidget
+                src={require("../../assets/icons/room.png")}
+                label="Room type"
+                type="Indoor"
+              />
+            </View>
+
+            <View style={styles.diaryWidget}>
+              <DiaryTopInfoWidget
+                src={require("../../assets/icons/watering.png")}
+                label="Watering"
+                type="Manual"
+              />
+            </View>
+
+            <View>
+              <DiaryTopInfoWidget
+                src={require("../../assets/icons/medium.png")}
+                label="Medium"
+                type="Soil"
+              />
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.sectionB}>
+          <View style={styles.title1}>
+            <Title2 title="Your journals" />
+          </View>
+
+          {/* <WeekWidget title="Week 1" weekType="Ger" /> */}
+
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={data}
+            renderItem={(itemData) => {
+              return (
+                <WeekWidget
+                  weekType={itemData.item.weekType}
+                  title={itemData.item.title}
+                />
+              );
+            }}
+          />
+
+          <View></View>
+        </View>
+
         <View style={styles.sectionD}>
           <View>
             <Title2 title="Grow Conditions" />
           </View>
+          <PlantGrowthStatusForm />
+        </View>
+
+        <View style={styles.sectionC}>
+          {/* <View style={styles.gallery}></View> */}
+
+          <SafeAreaView style={styles.container1}>
+            <CarouselCards />
+          </SafeAreaView>
         </View>
       </ScrollView>
     </View>
@@ -165,13 +167,15 @@ function Diary(props) {
 
 const styles = StyleSheet.create({
   container1: {
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    // backgroundColor: "#fff",
+    // alignItems: "center",
+    // justifyContent: "center",
     padding: 50,
+    // paddingTop: 50,
   },
   sectionA: {
     alignItems: "center",
+    paddingTop: 45,
   },
   title: {
     fontSize: 24,
@@ -204,6 +208,7 @@ const styles = StyleSheet.create({
   sectionC: {
     alignItems: "center",
     marginTop: 20,
+    width: "100%",
   },
   sectionD: {
     alignItems: "center",
