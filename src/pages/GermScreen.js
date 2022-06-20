@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import DiaryTopInfoWidget from "../components/DiaryTopInfoWidget";
 import Title from "../components/Title";
 import Title2 from "../components/Title2";
@@ -7,13 +7,14 @@ import CustomLargeButton from "../components/CustomLargeButton";
 import Tags from "../components/Tags";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
+import { useState } from "react";
 
 function GermScreen(props) {
   const navigation = useNavigation();
 
   const [inputs, setInputs] = useState({
     germinationType: {
-      value: defaultValues ? defaultValues.germinationType : "",
+      value: "",
       isValid: true,
     },
   });
@@ -32,19 +33,21 @@ function GermScreen(props) {
       germinationType: inputs.germinationType,
     };
 
-    const roomTypeIsValid = data.roomType.length > 0;
+    const germinationTypeIsValid = data.germinationType.length > 0;
 
-    if (!nameIsValid) {
+    if (!germinationTypeIsValid) {
       setInputs((curInputs) => {
         return {
           name: { value: curInputs.name.value, isValid: nameIsValid },
-          roomType: {
-            value: curInputs.roomType.value,
-            isValid: roomTypeIsValid,
+          germinationType: {
+            value: curInputs.germinationType.value,
+            isValid: germinationTypeIsValid,
           },
         };
       });
     }
+
+    const formIsInvalid = !inputs.name.isValid;
   }
 
   const testNavigate = (data) => {
@@ -101,11 +104,11 @@ function GermScreen(props) {
       <View style={styles.sectionD}>
         <Title2 title="Germination method" />
 
-        <View>
+        <View style={styles.tagContainer}>
           <Text style={styles.label}>Medium type</Text>
           <Picker
-            selectedValue={inputs.mediumType.value}
-            onValueChange={inputChangeHandler.bind(this, "mediumType")}
+            selectedValue={inputs.germinationType.value}
+            onValueChange={inputChangeHandler.bind(this, "germinationType")}
             mode="dropdown" // Android only
             style={styles.picker}
           >
@@ -117,6 +120,10 @@ function GermScreen(props) {
             <Picker.Item label="Soil" value="Soil" />
             <Picker.Item label="Clay" value="Clay" />
           </Picker>
+        </View>
+
+        <View style={styles.photoBtnContainer}>
+          <CustomLargeButton name="Save" onPress={testNavigate()} />
         </View>
 
         {/* <View style={styles.tagContainer}>
@@ -169,6 +176,19 @@ const styles = StyleSheet.create({
   tagContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
+    alignItems: "center",
+  },
+  picker: {
+    // marginVertical: 30,
+    // width: 300,
+    // padding: 10,
+    borderWidth: 1,
+    borderColor: "#666",
+    flex: 2,
+    fontSize: 12,
+  },
+  label: {
+    flex: 1,
   },
 });
 

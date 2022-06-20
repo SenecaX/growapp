@@ -7,7 +7,7 @@ import DiaryWidget from "../components/DiaryWidget";
 import CustomModal from "../components/CustomModal";
 import { useNavigation } from "@react-navigation/native";
 
-function Home() {
+function HomeScreen() {
   const navigation = useNavigation();
 
   const data = [
@@ -145,7 +145,7 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   inputContainer: {
