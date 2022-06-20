@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image } from "react-native";
 function DiaryWidget(props) {
   return (
     <View style={styles.titleContainer}>
-      <View>
+      <View style={styles.imageContainer}>
         <Image style={styles.image} source={props.src} />
       </View>
 
@@ -18,6 +18,7 @@ function DiaryWidget(props) {
 const styles = StyleSheet.create({
   titleContainer: {
     width: 100,
+    margin: 10,
   },
   textContainer: {
     alignItems: "center",
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
+  imageContainer: {},
 });
 
 export default DiaryWidget;

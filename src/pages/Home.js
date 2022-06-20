@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList, Button } from "react-native";
+import { StyleSheet, View, FlatList, ScrollView } from "react-native";
 import Title from "../components/Title";
 import Title2 from "../components/Title2";
 import CustomButton from "../components/CustomButton";
@@ -94,22 +94,22 @@ function Home() {
   return (
     <View style={styles.inputContainer}>
       <View style={styles.sectionA}>
-        <CustomButton
-          name="Add new"
-          style={styles.customSearch}
-          goToNewDiaryScreen={goToNewDiaryScreen}
-        />
         <Title title="Home" />
 
         <CustomSearch placeholder="search diaries..." />
 
         <View style={styles.subSectionA}>
           <Title2 title="Your journals" />
+          <CustomButton
+            name="Add new"
+            style={styles.customSearch}
+            goToNewDiaryScreen={goToNewDiaryScreen}
+          />
         </View>
       </View>
 
       <View style={styles.subSectionB}>
-        <FlatList
+        {/* <FlatList
           alwaysBounceVertical={false}
           //   style={styles.listData}
           numColumns={3}
@@ -124,7 +124,22 @@ function Home() {
               />
             );
           }}
-        />
+        /> */}
+        <ScrollView>
+          <View style={styles.diaryWidgetContainer}>
+            {data.map((el) => {
+              return (
+                <DiaryWidget
+                  src={el.imgSrc}
+                  title={el.title}
+                  week={el.week}
+                  key={el.key}
+                  style={styles.listItem}
+                />
+              );
+            })}
+          </View>
+        </ScrollView>
       </View>
     </View>
   );
@@ -133,7 +148,9 @@ function Home() {
 export default Home;
 
 const styles = StyleSheet.create({
-  inputContainer: {},
+  inputContainer: {
+    paddingTop: 50,
+  },
   sectionA: {
     justifyContent: "center",
     alignItems: "center",
@@ -149,13 +166,17 @@ const styles = StyleSheet.create({
   customSearch: {
     width: "100%",
   },
-  subSectionB: {},
+  subSectionB: {
+    height: "100%",
+  },
   listItem: {
     // marginHorizontal: 20,
   },
   diaryWidgetContainer: {
-    // display: "flex",
-    // flexDirection: "row",
-    // justifyContent: "space-between",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    height: "100%",
   },
 });

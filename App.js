@@ -21,11 +21,11 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Diary" component={Diary}></Stack.Screen>
 
+        <Stack.Screen name="Home" component={Home}></Stack.Screen>
+
         <Stack.Screen name="NewDiary" component={NewDiary}></Stack.Screen>
 
         <Stack.Screen name="AddNewClass" component={AddNewClass}></Stack.Screen>
-
-        <Stack.Screen name="Home" component={Home}></Stack.Screen>
 
         <Stack.Screen
           name="GerminationScreen"
