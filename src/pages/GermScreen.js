@@ -6,18 +6,55 @@ import WeekWidget from "../components/WeekWidget";
 import CustomLargeButton from "../components/CustomLargeButton";
 import Tags from "../components/Tags";
 import { useNavigation } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
 
-function GerminationScreen(props) {
+function GermScreen(props) {
   const navigation = useNavigation();
+
+  const [inputs, setInputs] = useState({
+    germinationType: {
+      value: defaultValues ? defaultValues.germinationType : "",
+      isValid: true,
+    },
+  });
+
+  function inputChangeHandler(inputIdentifier, enteredValue) {
+    setInputs((curInputValues) => {
+      return {
+        ...curInputValues,
+        [inputIdentifier]: { value: enteredValue, isValid: true },
+      };
+    });
+  }
+
+  function submitHandler() {
+    const data = {
+      germinationType: inputs.germinationType,
+    };
+
+    const roomTypeIsValid = data.roomType.length > 0;
+
+    if (!nameIsValid) {
+      setInputs((curInputs) => {
+        return {
+          name: { value: curInputs.name.value, isValid: nameIsValid },
+          roomType: {
+            value: curInputs.roomType.value,
+            isValid: roomTypeIsValid,
+          },
+        };
+      });
+    }
+  }
 
   const testNavigate = (data) => {
     // navigation.navigate("Diary");
   };
 
   return (
-    <View style={styles.titleContainer}>
+    <View style={styles.container}>
       <View style={styles.sectionA}>
-        <Title title="changed" />
+        <Title title="Germination screen" />
         <View style={styles.diaryWidgetContainer}>
           <View style={styles.diaryWidget}>
             <DiaryTopInfoWidget
@@ -64,20 +101,40 @@ function GerminationScreen(props) {
       <View style={styles.sectionD}>
         <Title2 title="Germination method" />
 
-        <View style={styles.tagContainer}>
+        <View>
+          <Text style={styles.label}>Medium type</Text>
+          <Picker
+            selectedValue={inputs.mediumType.value}
+            onValueChange={inputChangeHandler.bind(this, "mediumType")}
+            mode="dropdown" // Android only
+            style={styles.picker}
+          >
+            <Picker.Item
+              label="Please select the medium type."
+              value="Unknown"
+            />
+            <Picker.Item label="Hydro" value="Hydro" />
+            <Picker.Item label="Soil" value="Soil" />
+            <Picker.Item label="Clay" value="Clay" />
+          </Picker>
+        </View>
+
+        {/* <View style={styles.tagContainer}>
           <Tags name="Paper towel" width="40%" />
           <Tags name="Glass of water" width="50%" />
           <Tags name="Rockwool cube" width="50%" />
           <Tags name="Peat pellet" width="40%" />
           <Tags name="Directly in substrate" width="70%" />
-        </View>
+        </View> */}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {},
+  container: {
+    paddingTop: 50,
+  },
   sectionA: {
     alignItems: "center",
   },
@@ -115,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GerminationScreen;
+export default GermScreen;

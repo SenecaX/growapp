@@ -6,6 +6,7 @@ import AddNewClass from "./src/pages/AddNewClass";
 import MarkingHome from "./src/pages/MarkingHome";
 import Marking from "./src/pages/Marking";
 import GerminationScreen from "./src/pages/GerminationScreen";
+import GermScreen from "./src/pages/GermScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -19,18 +20,20 @@ export default function App() {
 
     <NavigationContainer style={styles.appContainer}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Diary" component={Diary}></Stack.Screen>
-
-        <Stack.Screen name="Home" component={Home}></Stack.Screen>
-
-        <Stack.Screen name="NewDiary" component={NewDiary}></Stack.Screen>
+        <Stack.Screen name="GermScreen" component={GermScreen}></Stack.Screen>
 
         <Stack.Screen name="AddNewClass" component={AddNewClass}></Stack.Screen>
+
+        <Stack.Screen name="Home" component={Home}></Stack.Screen>
 
         <Stack.Screen
           name="GerminationScreen"
           component={GerminationScreen}
         ></Stack.Screen>
+
+        <Stack.Screen name="NewDiary" component={NewDiary}></Stack.Screen>
+
+        <Stack.Screen name="Diary" component={Diary}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
