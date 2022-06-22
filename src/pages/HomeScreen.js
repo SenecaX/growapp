@@ -1,4 +1,13 @@
-import { StyleSheet, View, FlatList, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  ScrollView,
+  Modal,
+  Pressable,
+  Alert,
+  Text,
+} from "react-native";
 import Title from "../components/Title";
 import Title2 from "../components/Title2";
 import CustomButton from "../components/CustomButton";
@@ -6,9 +15,12 @@ import CustomSearch from "../components/CustomSearch";
 import DiaryWidget from "../components/DiaryWidget";
 import CustomModal from "../components/CustomModal";
 import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import { post } from "../util/http";
 
 function HomeScreen() {
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const data = [
     {
@@ -77,19 +89,18 @@ function HomeScreen() {
     );
   }
 
-  function testNavigate() {
-    console.log("testing");
-    navigation.navigate("GerminationScreen");
-  }
-
   function goToNewDiaryScreen() {
     navigation.navigate("NewDiary");
   }
 
-  // const onSignInPressed = () => {
-  //   console.log("GerminationScreen");
-  //   navigation.navigate("GerminationScreen");
-  // };
+  async function confirmHandler(data) {
+    let test = {
+      id: 2,
+      name: "test",
+    };
+
+    const id = await post(test);
+  }
 
   return (
     <View style={styles.inputContainer}>
@@ -103,9 +114,39 @@ function HomeScreen() {
           <CustomButton
             name="Add new"
             style={styles.customSearch}
-            goToNewDiaryScreen={goToNewDiaryScreen}
+            goToNewDiaryScreen={confirmHandler}
           />
         </View>
+      </View>
+
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Hello World!</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+        <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.textStyle}>Show Modal</Text>
+        </Pressable>
       </View>
 
       <View style={styles.subSectionB}>
@@ -178,5 +219,46 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     height: "100%",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
