@@ -1,8 +1,12 @@
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 
 function DiaryWidget(props) {
   return (
-    <View style={styles.titleContainer}>
+    <Pressable
+      style={styles.titleContainer}
+      onPress={props.goToDiary}
+      key={props.title}
+    >
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={props.src} />
       </View>
@@ -11,7 +15,7 @@ function DiaryWidget(props) {
         <Text style={styles.title}>{props.title}</Text>
         <Text style={styles.week}>{props.week}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

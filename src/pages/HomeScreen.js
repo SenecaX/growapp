@@ -16,7 +16,7 @@ import DiaryWidget from "../components/DiaryWidget";
 import CustomModal from "../components/CustomModal";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { post, getDiariesWidgetInfo } from "../util/http";
+import { post, getDiariesWidgetInfo, getDiaries } from "../util/http";
 import { useEffect } from "react";
 
 function HomeScreen() {
@@ -31,14 +31,21 @@ function HomeScreen() {
   }
 
   useEffect(() => {
-    async function getDiaries() {
-      const diaries = await getDiariesWidgetInfo();
+    async function getDiaries1() {
+      const diaries = await getDiaries();
       setDiaries(diaries);
       console.log("diaries :>> ", diaries);
     }
 
-    getDiaries();
+    getDiaries1();
   }, []);
+
+  function goToDiary(index) {
+    console.log("event :>> ", event);
+
+    const test = diaries[index];
+    console.log("test :>> ", test);
+  }
 
   return (
     <View style={styles.inputContainer}>
@@ -107,13 +114,14 @@ function HomeScreen() {
         <ScrollView>
           <View style={styles.diaryWidgetContainer}>
             {diaries &&
-              diaries.map((el) => {
+              diaries.map((el, index) => {
                 return (
                   <DiaryWidget
+                    goToDiary={(el) => goToDiary(index)}
                     src={el.imgSrc}
                     title={el.title}
                     week={el.week}
-                    key={el.key}
+                    key={index + 1}
                     style={styles.listItem}
                   />
                 );

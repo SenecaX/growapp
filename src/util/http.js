@@ -16,14 +16,46 @@ export async function getDiariesWidgetInfo() {
   const diary = [];
 
   for (const key in response.data) {
-    const object = {
+    const object2 = {
       title: response.data[key].diaryInfo.name,
       week: "Week " + response.data[key].week.length,
       // imgSrc: require("../../assets/duck.jpeg"),
       key: response.data[key].diaryInfo.name,
     };
+
+    const object = {
+      title: response.data[key].diaryInfo.name,
+      week: "Week " + response.data[key].week.length,
+      // imgSrc: require("../../assets/duck.jpeg"),
+      key: response.data[key].diaryInfo.name,
+      diaryInfo: [
+        {
+          name: response.data[key].diaryInfo.name,
+          roomType: response.data[key].diaryInfo.roomType,
+          wateringType: response.data[key].diaryInfo.wateringType,
+          mediumType: response.data[key].diaryInfo.mediumType,
+        },
+      ],
+      week: [
+        {
+          weekNum: response.data[key].week[0].weekNum,
+          type: response.data[key].week[0].type,
+          typeName: response.data[key].week[0].typeName,
+          vegetationLights: response.data[key].week[0].vegetationLights,
+          floweringLights: response.data[key].week[0].floweringLights,
+          lightSchedule: response.data[key].week[0].lightSchedule,
+          pH: response.data[key].week[0].pH,
+          airHumidity: response.data[key].week[0].airHumidity,
+          potSize: response.data[key].week[0].potSize,
+          watering: response.data[key].week[0].watering,
+        },
+      ],
+    };
+
     diary.push(object);
   }
+
+  console.log("diary :>> ", diary);
 
   return diary;
 }

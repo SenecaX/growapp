@@ -112,6 +112,7 @@ function AuthenticatedStack() {
           ),
         }}
       />
+
       <Stack.Screen
         name="Diary"
         component={Diary}
