@@ -41,11 +41,8 @@ function HomeScreen() {
   }, []);
 
   function goToDiary(index) {
-    console.log("event :>> ", event);
-
-    const test = diaries[index];
-    console.log("test :>> ", test);
-    navigation.navigate("dairy", test);
+    const selectedDiary = diaries[index];
+    navigation.navigate("Diary", selectedDiary);
   }
 
   return (
