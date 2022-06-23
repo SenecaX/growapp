@@ -22,7 +22,7 @@ import { useEffect } from "react";
 function HomeScreen() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-  const [diaries, setDiaries] = useState(false);
+  const [diaries, setDiaries] = useState([]);
 
   let data;
 
@@ -106,17 +106,18 @@ function HomeScreen() {
         /> */}
         <ScrollView>
           <View style={styles.diaryWidgetContainer}>
-            {diaries?.map((el) => {
-              return (
-                <DiaryWidget
-                  src={el.imgSrc}
-                  title={el.title}
-                  week={el.week}
-                  key={el.key}
-                  style={styles.listItem}
-                />
-              );
-            })}
+            {diaries &&
+              diaries.map((el) => {
+                return (
+                  <DiaryWidget
+                    src={el.imgSrc}
+                    title={el.title}
+                    week={el.week}
+                    key={el.key}
+                    style={styles.listItem}
+                  />
+                );
+              })}
           </View>
         </ScrollView>
       </View>
