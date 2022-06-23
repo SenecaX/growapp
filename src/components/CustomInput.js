@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flex: 2,
   },
   input: {
-    backgroundColor: "#EEE",
+    backgroundColor: "#bdc3c7",
     // padding: 6,
     // fontSize: 18,
     // borderRadius: 6,

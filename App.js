@@ -63,6 +63,13 @@ import AuthContextProvider, { AuthContext } from "./src/store/auth-context";
 import IconButton from "./src/components/IconButton";
 import Diary from "./src/pages/Diary";
 import NewDiary from "./src/pages/NewDiary";
+import Upload from "./src/components/Upload";
+import GermScreen from "./src/pages/GermScreen";
+import MarkingHome from "./src/pages/marking/MarkingHome";
+import AddClass from "./src/pages/marking/AddClass";
+import AddStudent from "./src/pages/marking/AddStudent";
+import MarkingView from "./src/pages/marking/MarkingView";
+import AnalyticsView from "./src/pages/marking/AnalyticsView";
 
 const Stack = createNativeStackNavigator();
 
@@ -107,8 +114,113 @@ function AuthenticatedStack() {
       />
 
       <Stack.Screen
+        name="Marking Home"
+        component={MarkingHome}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="AddClass"
+        component={AddClass}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="AddStudent"
+        component={AddStudent}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="MarkingView"
+        component={MarkingView}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="AnalyticsView"
+        component={AnalyticsView}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="Germination screen"
+        component={GermScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
         name="Diary"
         component={Diary}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="Upload"
+        component={Upload}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton

@@ -14,8 +14,18 @@ import CarouselCards from "../components/CarouselCards";
 import PlantGrowthStatusForm from "../components/PlantGrowthStatusForm";
 
 import Carousel from "react-native-snap-carousel";
+import { post } from "../util/http";
 
 function Diary(props) {
+  useEffect(() => {
+    async function getDiariesByName() {
+      const diaries = await getDiariesByKey();
+      console.log("diaries :>> ", diaries);
+    }
+
+    getDiariesByName();
+  }, []);
+
   const data = [
     {
       key: 1,
@@ -94,7 +104,7 @@ function Diary(props) {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.sectionA}>
-          <Title title="Lettuce Grow #1" />
+          <Title title="Diary" />
           <View style={styles.diaryWidgetContainer}>
             <View style={styles.diaryWidget}>
               <DiaryTopInfoWidget

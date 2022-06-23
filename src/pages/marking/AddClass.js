@@ -1,14 +1,13 @@
 import { StyleSheet, View, Text } from "react-native";
-import Title from "../components/Title";
-import NewDiaryForm from "../components/NewDiaryForm";
-import { post } from "../util/http";
 import { useNavigation } from "@react-navigation/native";
+import { postClass } from "../../util/httpMarking";
+import AddClassForm from "../../components/marking/AddClassForm";
 
-function NewDiary(props) {
+function AddClass(props) {
   const navigation = useNavigation();
 
   async function confirmHandler(data) {
-    const id = await post(data);
+    const id = await postClass(data);
   }
 
   function onCancel() {
@@ -17,19 +16,18 @@ function NewDiary(props) {
 
   return (
     <View style={styles.container}>
-      <Title title="New Diary" />
+      <Text style={styles.title}>{props.title}</Text>
+      <Text style={styles.title}>Administrator mode</Text>
+      <Text> Add Class</Text>
 
-      <NewDiaryForm onSubmit={confirmHandler} onCancel={onCancel} />
+      <AddClassForm onSubmit={confirmHandler} onCancel={onCancel} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 100,
-    width: "95%",
-    alignItems: "center",
-    // paddingHorizontal: 10,
+    padding: 25,
   },
   title: {
     fontSize: 24,
@@ -39,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewDiary;
+export default AddClass;
