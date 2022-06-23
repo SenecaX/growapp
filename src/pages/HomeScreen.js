@@ -117,7 +117,7 @@ function HomeScreen() {
                   <DiaryWidget
                     src={el.imgSrc}
                     title={el.title}
-                    goToDiary={goToDiary}
+                    goToDiary={() => goToDiary(index)}
                     week={el.week}
                     key={`${index} ${el.title}`}
                     style={styles.listItem}
