@@ -50,8 +50,6 @@ function MarkingViewForm({ onSubmit, onCancel, defaultValues }) {
       marks: inputs.marks.value,
     };
 
-    console.log("data :>> ", data);
-
     const gradeIsValid = data.diaryInfo.grade.value !== "";
     const sectionIsValid = data.diaryInfo.section.value !== "";
     const subjectIsValid = data.diaryInfo.subject.value !== "";

@@ -33,7 +33,6 @@ function Upload() {
           type,
           name,
         };
-        console.log("Image ", source);
       }
     });
   }

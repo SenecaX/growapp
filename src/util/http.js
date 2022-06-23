@@ -28,14 +28,13 @@ export async function getDiariesWidgetInfo() {
       week: "Week " + response.data[key].week.length,
       // imgSrc: require("../../assets/duck.jpeg"),
       key: response.data[key].diaryInfo.name,
-      diaryInfo: [
-        {
-          name: response.data[key].diaryInfo.name,
-          roomType: response.data[key].diaryInfo.roomType,
-          wateringType: response.data[key].diaryInfo.wateringType,
-          mediumType: response.data[key].diaryInfo.mediumType,
-        },
-      ],
+      diaryInfo: {
+        name: response.data[key].diaryInfo.name,
+        roomType: response.data[key].diaryInfo.roomType,
+        wateringType: response.data[key].diaryInfo.wateringType,
+        mediumType: response.data[key].diaryInfo.mediumType,
+      },
+
       week: [
         {
           weekNum: response.data[key].week[0].weekNum,
@@ -54,8 +53,6 @@ export async function getDiariesWidgetInfo() {
 
     diary.push(object);
   }
-
-  console.log("diary :>> ", diary);
 
   return diary;
 }

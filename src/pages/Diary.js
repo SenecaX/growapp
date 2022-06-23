@@ -18,10 +18,14 @@ import { getDiariesByKey } from "../util/http";
 import { useContext, useEffect, useState } from "react";
 
 function Diary(props) {
+  console.log("props :>> ", props);
+
+  const diary = props.route.params;
+
+  console.log("diary :>> ", diary);
   useEffect(() => {
     async function getDiariesByName() {
       const diaries = await getDiariesByKey();
-      console.log("diaries :>> ", diaries);
     }
 
     getDiariesByName();
@@ -111,7 +115,7 @@ function Diary(props) {
               <DiaryTopInfoWidget
                 src={require("../../assets/icons/room.png")}
                 label="Room type"
-                type="Indoor"
+                type={diary.diaryInfo.roomType}
               />
             </View>
 
@@ -119,7 +123,7 @@ function Diary(props) {
               <DiaryTopInfoWidget
                 src={require("../../assets/icons/watering.png")}
                 label="Watering"
-                type="Manual"
+                type={diary.diaryInfo.wateringType}
               />
             </View>
 
@@ -127,7 +131,7 @@ function Diary(props) {
               <DiaryTopInfoWidget
                 src={require("../../assets/icons/medium.png")}
                 label="Medium"
-                type="Soil"
+                type={diary.diaryInfo.mediumType}
               />
             </View>
           </View>
