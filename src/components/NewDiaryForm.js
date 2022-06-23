@@ -29,6 +29,26 @@ function NewDiaryForm({ onSubmit, onCancel, defaultValues }) {
       value: defaultValues ? defaultValues.floweringLights : "",
       isValid: true,
     },
+    lightSchedule: {
+      value: defaultValues ? defaultValues.lightSchedule : "",
+      isValid: true,
+    },
+    pH: {
+      value: defaultValues ? defaultValues.pH : "",
+      isValid: true,
+    },
+    airHumidity: {
+      value: defaultValues ? defaultValues.airHumidity : "",
+      isValid: true,
+    },
+    potSize: {
+      value: defaultValues ? defaultValues.potSize : "",
+      isValid: true,
+    },
+    watering: {
+      value: defaultValues ? defaultValues.watering : "",
+      isValid: true,
+    },
   });
 
   function inputChangeHandler(inputIdentifier, enteredValue) {
@@ -42,20 +62,36 @@ function NewDiaryForm({ onSubmit, onCancel, defaultValues }) {
 
   function submitHandler() {
     const data = {
-      name: inputs.name,
-      roomType: inputs.roomType,
-      wateringType: inputs.wateringType,
-      mediumType: inputs.roomType,
-      vegetationLights: inputs.vegetationLights,
-      floweringLights: inputs.floweringLights,
+      // diaries: {
+      diaryInfo: {
+        name: inputs.name.value,
+        roomType: inputs.roomType.value,
+        wateringType: inputs.wateringType.value,
+        mediumType: inputs.mediumType.value,
+      },
+      week: [
+        {
+          weekNum: 0,
+          type: "Ger",
+          typeName: "Germination",
+          vegetationLights: inputs.vegetationLights.value,
+          floweringLights: inputs.floweringLights.value,
+          lightSchedule: inputs.lightSchedule.value,
+          pH: inputs.pH.value,
+          airHumidity: inputs.airHumidity.value,
+          potSize: inputs.potSize.value,
+          watering: inputs.watering.value,
+        },
+      ],
+      // },
     };
 
-    const nameIsValid = data.name.length > 0;
-    const roomTypeIsValid = data.roomType.length > 0;
-    const wateringTypeIsValid = data.wateringType.length > 0;
-    const mediumTypeIsValid = data.mediumType.length > 0;
-    const vegetationLightsIsValid = data.vegetationLights.length > 0;
-    const floweringLightsIsValid = data.floweringLights.length > 0;
+    const nameIsValid = data.diaryInfo.name.value !== "";
+    const roomTypeIsValid = data.diaryInfo.roomType.value !== "";
+    const wateringTypeIsValid = data.diaryInfo.wateringType.value !== "";
+    const mediumTypeIsValid = data.diaryInfo.mediumType.value !== "";
+    const vegetationLightsIsValid = data.week[0].vegetationLights.value !== "";
+    const floweringLightsIsValid = data.week[0].floweringLights.value !== "";
 
     if (!nameIsValid) {
       setInputs((curInputs) => {

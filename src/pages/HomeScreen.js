@@ -16,91 +16,27 @@ import DiaryWidget from "../components/DiaryWidget";
 import CustomModal from "../components/CustomModal";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { post } from "../util/http";
+import { post, getDiariesWidgetInfo } from "../util/http";
+import { useEffect } from "react";
 
 function HomeScreen() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
 
-  const data = [
-    {
-      title: "Lettuce grow #1",
-      week: "Week 2",
-      imgSrc: require("../../assets/duck.jpeg"),
-      key: 1,
-    },
-    {
-      title: "Lettuce grow #1",
-      week: "Week 2",
-      imgSrc: require("../../assets/duck.jpeg"),
-      key: 2,
-    },
-    {
-      title: "Lettuce grow #1",
-      week: "Week 2",
-      imgSrc: require("../../assets/duck.jpeg"),
-      key: 3,
-    },
-    {
-      title: "Lettuce grow #1",
-      week: "Week 2",
-      imgSrc: require("../../assets/duck.jpeg"),
-      key: 4,
-    },
-    {
-      title: "Lettuce grow #1",
-      week: "Week 2",
-      imgSrc: require("../../assets/duck.jpeg"),
-      key: 5,
-    },
-    {
-      title: "Lettuce grow #1",
-      week: "Week 2",
-      imgSrc: require("../../assets/duck.jpeg"),
-      key: 6,
-    },
-    {
-      title: "Lettuce grow #1",
-      week: "Week 2",
-      imgSrc: require("../../assets/duck.jpeg"),
-      key: 7,
-    },
-    {
-      title: "Lettuce grow #1",
-      week: "Week 2",
-      imgSrc: require("../../assets/duck.jpeg"),
-      key: 8,
-    },
-    {
-      title: "Lettuce grow #1",
-      week: "Week 2",
-      imgSrc: require("../../assets/duck.jpeg"),
-      key: 9,
-    },
-  ];
-
-  function openModal() {
-    return (
-      <CustomModal
-        isVisible={true}
-        textValue={"hi there"}
-        message={"trying to make a basic component modal"}
-      />
-    );
-  }
+  let data;
 
   function goToNewDiaryScreen() {
     navigation.navigate("NewDiary");
   }
 
-  async function confirmHandler(data) {
-    let test = {
-      id: 2,
-      name: "test",
-    };
+  useEffect(() => {
+    async function getDiaries() {
+      const diaries = await getDiariesWidgetInfo();
+      console.log("diaries :>> ", diaries);
+    }
 
-    const id = await post(test);
-  }
+    getDiaries();
+  }, []);
 
   return (
     <View style={styles.inputContainer}>
@@ -114,7 +50,7 @@ function HomeScreen() {
           <CustomButton
             name="Add new"
             style={styles.customSearch}
-            goToNewDiaryScreen={confirmHandler}
+            goToNewDiaryScreen={goToNewDiaryScreen}
           />
         </View>
       </View>
@@ -168,7 +104,7 @@ function HomeScreen() {
         /> */}
         <ScrollView>
           <View style={styles.diaryWidgetContainer}>
-            {data.map((el) => {
+            {data?.map((el) => {
               return (
                 <DiaryWidget
                   src={el.imgSrc}

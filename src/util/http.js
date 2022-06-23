@@ -1,4 +1,5 @@
 import axios from "axios";
+import _ from "lodash";
 
 const BACKEND_URL =
   "https://backend-dde8e-default-rtdb.europe-west1.firebasedatabase.app/";
@@ -9,17 +10,52 @@ export async function post(data) {
   return id;
 }
 
-export async function get() {
+export async function getDiariesWidgetInfo() {
   const response = await axios.get(BACKEND_URL + "/diary.json");
 
   const diary = [];
 
   for (const key in response.data) {
     const object = {
-      id: key,
-      name: response.data[key].amount,
-      date: new Date(response.data[key].date),
-      description: response.data[key].description,
+      title: response.data[key].diaryInfo.name,
+      week: "Week " + response.data[key].week.length,
+      // imgSrc: require("../../assets/duck.jpeg"),
+      key: response.data[key].diaryInfo.name,
+    };
+    diary.push(object);
+  }
+
+  return diary;
+
+}
+
+export async function getDiaries() {
+  const response = await axios.get(BACKEND_URL + "/diary.json");
+
+  const diary = [];
+
+  for (const key in response.data) {
+    const object = {
+      diaryInfo: {
+        name: response.data[key].diaryInfo.name,
+        roomType: response.data[key].diaryInfo.roomType,
+        wateringType: response.data[key].diaryInfo.wateringType,
+        mediumType: response.data[key].diaryInfo.mediumType,
+      },
+      week: [
+        {
+          weekNum: response.data[key].week[0].weekNum,
+          type: response.data[key].week[0].type,
+          typeName: response.data[key].week[0].typeName,
+          vegetationLights: response.data[key].week[0].vegetationLights,
+          floweringLights: response.data[key].week[0].floweringLights,
+          lightSchedule: response.data[key].week[0].lightSchedule,
+          pH: response.data[key].week[0].pH,
+          airHumidity: response.data[key].week[0].airHumidity,
+          potSize: response.data[key].week[0].potSize,
+          watering: response.data[key].week[0].watering,
+        },
+      ],
     };
     diary.push(object);
   }

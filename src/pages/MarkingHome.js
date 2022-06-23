@@ -78,7 +78,6 @@ function MarkingHome() {
   }
 
   function testNavigate() {
-    console.log("testing");
     navigation.navigate("GerminationScreen");
   }
 
@@ -87,7 +86,6 @@ function MarkingHome() {
   }
 
   // const onSignInPressed = () => {
-  //   console.log("GerminationScreen");
   //   navigation.navigate("GerminationScreen");
   // };
 

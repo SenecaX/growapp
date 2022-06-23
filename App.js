@@ -62,6 +62,7 @@ import { Colors } from "./src/constants/styles";
 import AuthContextProvider, { AuthContext } from "./src/store/auth-context";
 import IconButton from "./src/components/IconButton";
 import Diary from "./src/pages/Diary";
+import NewDiary from "./src/pages/NewDiary";
 
 const Stack = createNativeStackNavigator();
 
@@ -91,6 +92,21 @@ function AuthenticatedStack() {
       }}
     >
       <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
         name="Diary"
         component={Diary}
         options={{
@@ -106,8 +122,8 @@ function AuthenticatedStack() {
       />
 
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
+        name="NewDiary"
+        component={NewDiary}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
