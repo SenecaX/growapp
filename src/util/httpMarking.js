@@ -101,3 +101,9 @@ export async function postStudent(data) {
   const id = response.data.name + response.data.surname;
   return id;
 }
+
+export async function postStudentMarking(data) {
+  const response = await axios.post(BACKEND_URL + "/student.json", data);
+  const id = Math.floor(Math.random() * 10) + 10000;
+  return id;
+}

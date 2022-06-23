@@ -112,10 +112,38 @@ function AuthenticatedStack() {
           ),
         }}
       />
+      <Stack.Screen
+        name="Diary"
+        component={Diary}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
 
       <Stack.Screen
         name="Marking Home"
         component={MarkingHome}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="AnalyticsView"
+        component={AnalyticsView}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -174,38 +202,8 @@ function AuthenticatedStack() {
       />
 
       <Stack.Screen
-        name="AnalyticsView"
-        component={AnalyticsView}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
         name="Germination screen"
         component={GermScreen}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="Diary"
-        component={Diary}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton

@@ -22,6 +22,7 @@ import { useEffect } from "react";
 function HomeScreen() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [diaries, setDiaries] = useState(false);
 
   let data;
 
@@ -32,6 +33,7 @@ function HomeScreen() {
   useEffect(() => {
     async function getDiaries() {
       const diaries = await getDiariesWidgetInfo();
+      setDiaries(diaries);
       console.log("diaries :>> ", diaries);
     }
 
@@ -104,7 +106,7 @@ function HomeScreen() {
         /> */}
         <ScrollView>
           <View style={styles.diaryWidgetContainer}>
-            {data?.map((el) => {
+            {diaries?.map((el) => {
               return (
                 <DiaryWidget
                   src={el.imgSrc}

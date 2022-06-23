@@ -14,7 +14,8 @@ import CarouselCards from "../components/CarouselCards";
 import PlantGrowthStatusForm from "../components/PlantGrowthStatusForm";
 
 import Carousel from "react-native-snap-carousel";
-import { post } from "../util/http";
+import { getDiariesByKey } from "../util/http";
+import { useContext, useEffect, useState } from "react";
 
 function Diary(props) {
   useEffect(() => {

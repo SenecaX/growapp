@@ -28,7 +28,7 @@ export async function getDiariesWidgetInfo() {
   return diary;
 }
 
-export async function getDiariesByName(name) {
+export async function getDiariesByKey(name) {
   const response = await axios.get(BACKEND_URL + "/diary.json");
 
   const diary = [];
