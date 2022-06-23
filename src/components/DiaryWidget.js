@@ -13,7 +13,7 @@ function DiaryWidget(props) {
 
       <View style={styles.textContainer}>
         <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.week}>{props.week}</Text>
+        <Text style={styles.week}>{props.week[props.week.length -1].weekNum}</Text>
       </View>
     </Pressable>
   );

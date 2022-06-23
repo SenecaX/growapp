@@ -32,7 +32,7 @@ function HomeScreen() {
 
   useEffect(() => {
     async function getDiaries1() {
-      const diaries = await getDiaries();
+      const diaries = await getDiariesWidgetInfo();
       setDiaries(diaries);
       console.log("diaries :>> ", diaries);
     }
@@ -45,6 +45,7 @@ function HomeScreen() {
 
     const test = diaries[index];
     console.log("test :>> ", test);
+    navigation.navigate("dairy", test);
   }
 
   return (
@@ -117,11 +118,11 @@ function HomeScreen() {
               diaries.map((el, index) => {
                 return (
                   <DiaryWidget
-                    goToDiary={(el) => goToDiary(index)}
                     src={el.imgSrc}
                     title={el.title}
+                    goToDiary={goToDiary}
                     week={el.week}
-                    key={index + 1}
+                    key={`${index} ${el.title}`}
                     style={styles.listItem}
                   />
                 );
