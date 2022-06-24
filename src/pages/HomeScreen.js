@@ -21,7 +21,9 @@ import { useEffect } from "react";
 
 function HomeScreen() {
   const navigation = useNavigation();
-  const [diaries, setDiaries] = useState([]);
+  const [diaries, setDiaries ] = useState([]);
+  const [filteredDiaries, setFilteredDiaries] = useState([]);
+
 
   function goToNewDiaryScreen() {
     navigation.navigate("NewDiary");
@@ -30,7 +32,9 @@ function HomeScreen() {
   useEffect(() => {
     async function getDiaries1() {
       const diaries = await getDiariesWidgetInfo();
+      const filteredDiaries = Array.from(diaries);
       setDiaries(diaries);
+      setFilteredDiaries(filteredDiaries);
     }
 
     getDiaries1();
@@ -41,12 +45,24 @@ function HomeScreen() {
     navigation.navigate("Diary", selectedDiary);
   }
 
+  function updateSearch(text) {
+    const updatedData = diaries.filter((item) => {
+      const item_data = `${item.title.toUpperCase()})`;
+      const text_data = text.toUpperCase();
+      return item_data.indexOf(text_data) > -1;
+    });
+    setFilteredDiaries(updatedData);
+  }
+
   return (
     <View style={styles.inputContainer}>
       <View style={styles.sectionA}>
         <Title title="Home" />
 
-        <CustomSearch placeholder="search diaries..." />
+        <CustomSearch
+          updateSearch={updateSearch}
+          placeholder="search diaries..."
+        />
 
         <View style={styles.subSectionA}>
           <Title2 title="Your journals" />
@@ -61,8 +77,8 @@ function HomeScreen() {
       <View style={styles.subSectionB}>
         <ScrollView>
           <View style={styles.diaryWidgetContainer}>
-            {diaries &&
-              diaries.map((el, index) => {
+            {filteredDiaries &&
+              filteredDiaries.map((el, index) => {
                 return (
                   <DiaryWidget
                     src={el.imgSrc}

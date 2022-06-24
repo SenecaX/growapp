@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput } from "react-native";
 function CustomSearch(props) {
   return (
     <View style={styles.titleContainer}>
-      <TextInput style={styles.input} placeholder={props.placeholder} />
+      <TextInput style={styles.input} placeholder={props.placeholder} onChangeText={props.updateSearch}/>
     </View>
   );
 }
