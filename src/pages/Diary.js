@@ -18,11 +18,8 @@ import { getDiariesByKey } from "../util/http";
 import { useContext, useEffect, useState } from "react";
 
 function Diary(props) {
-  console.log("props :>> ", props);
-
   const diary = props.route.params;
 
-  console.log("diary :>> ", diary);
   useEffect(() => {
     async function getDiariesByName() {
       const diaries = await getDiariesByKey();

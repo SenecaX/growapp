@@ -1,9 +1,22 @@
 import { StyleSheet, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import CardButton from "../../components/marking/CardButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useContext, useEffect, useState } from "react";
 
 function MarkingHome(props) {
   const navigation = useNavigation();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem("role").then((res) => {
+      if (res === "ADMIN") {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    });
+  }, []);
 
   function goToAddClass() {
     navigation.navigate("AddClass");
@@ -20,42 +33,45 @@ function MarkingHome(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
-      {/* 
-      <View style={styles.btbContainer}>
-        <View style={styles.topSide}>
-          <CardButton
-            btnName="Add class"
-            style={styles.leftBtn}
-            goToScreen={goToAddClass}
-          />
+      {isAdmin && (
+        <View style={styles.btbContainer}>
+          <View style={styles.topSide}>
+            <CardButton
+              btnName="Add class"
+              style={styles.leftBtn}
+              goToScreen={goToAddClass}
+            />
 
-          <CardButton btnName="Add student" goToScreen={goToAddStudent} />
+            <CardButton btnName="Add student" goToScreen={goToAddStudent} />
+          </View>
+
+          <View style={styles.topSide}>
+            <CardButton btnName="Add educator" style={styles.leftBtn} />
+
+            <CardButton btnName="Settings" />
+          </View>
         </View>
+      )}
 
-        <View style={styles.topSide}>
-          <CardButton btnName="Add educator" style={styles.leftBtn} />
+      {!isAdmin && (
+        <View style={styles.btbContainer}>
+          <View style={styles.topSide}>
+            <CardButton
+              btnName="Markings"
+              style={styles.leftBtn}
+              goToScreen={goToMarkingView}
+            />
 
-          <CardButton btnName="Settings" />
+            <CardButton btnName="Analytics" goToScreen={goToAddStudent} />
+          </View>
+
+          <View style={styles.topSide}>
+            <CardButton btnName="Test papers" style={styles.leftBtn} />
+
+            <CardButton btnName="Settings" />
+          </View>
         </View>
-      </View> */}
-
-      <View style={styles.btbContainer}>
-        <View style={styles.topSide}>
-          <CardButton
-            btnName="Markings"
-            style={styles.leftBtn}
-            goToScreen={goToMarkingView}
-          />
-
-          <CardButton btnName="Analytics" goToScreen={goToAddStudent} />
-        </View>
-
-        <View style={styles.topSide}>
-          <CardButton btnName="Test papers" style={styles.leftBtn} />
-
-          <CardButton btnName="Settings" />
-        </View>
-      </View>
+      )}
     </View>
   );
 }

@@ -34,7 +34,6 @@ function HomeScreen() {
     async function getDiaries1() {
       const diaries = await getDiariesWidgetInfo();
       setDiaries(diaries);
-      console.log("diaries :>> ", diaries);
     }
 
     getDiaries1();

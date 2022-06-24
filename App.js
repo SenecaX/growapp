@@ -99,6 +99,21 @@ function AuthenticatedStack() {
       }}
     >
       <Stack.Screen
+        name="Marking Home"
+        component={MarkingHome}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
         name="Home"
         component={HomeScreen}
         options={{
@@ -128,20 +143,6 @@ function AuthenticatedStack() {
         }}
       />
 
-      <Stack.Screen
-        name="Marking Home"
-        component={MarkingHome}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
       <Stack.Screen
         name="AnalyticsView"
         component={AnalyticsView}

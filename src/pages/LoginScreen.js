@@ -5,6 +5,7 @@ import AuthContent from "../components/Auth/AuthContent";
 import LoadingOverlay from "../components/LoadingOverlay";
 import { AuthContext } from "../store/auth-context";
 import { login } from "../util/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function LoginScreen() {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -15,6 +16,14 @@ function LoginScreen() {
     setIsAuthenticating(true);
     try {
       const token = await login(email, password);
+
+      if (token && email === "admin@gmail.com") {
+        AsyncStorage.setItem("role", "ADMIN");
+      } else {
+        AsyncStorage.setItem("role", "USER");
+      }
+
+      AsyncStorage.setItem("token", token);
       authCtx.authenticate(token);
     } catch (error) {
       Alert.alert(
