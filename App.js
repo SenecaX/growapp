@@ -71,6 +71,7 @@ import AddStudent from "./src/pages/marking/AddStudent";
 import MarkingView from "./src/pages/marking/MarkingView";
 import AnalyticsView from "./src/pages/marking/AnalyticsView";
 import ChooseWeekType from "./src/pages/ChooseWeekType";
+import TestPapers from "./src/pages/marking/TestPapers";
 
 const Stack = createNativeStackNavigator();
 
@@ -100,6 +101,35 @@ function AuthenticatedStack() {
       }}
     >
       <Stack.Screen
+        name="Test papers"
+        component={TestPapers}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Marking Home"
+        component={MarkingHome}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
         name="Home"
         component={HomeScreen}
         options={{
@@ -117,21 +147,6 @@ function AuthenticatedStack() {
       <Stack.Screen
         name="NewDiary"
         component={NewDiary}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="Marking Home"
-        component={MarkingHome}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
