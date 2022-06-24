@@ -21,10 +21,7 @@ import { useEffect } from "react";
 
 function HomeScreen() {
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
   const [diaries, setDiaries] = useState([]);
-
-  let data;
 
   function goToNewDiaryScreen() {
     navigation.navigate("NewDiary");
@@ -61,53 +58,7 @@ function HomeScreen() {
         </View>
       </View>
 
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.textStyle}>Show Modal</Text>
-        </Pressable>
-      </View>
-
       <View style={styles.subSectionB}>
-        {/* <FlatList
-          alwaysBounceVertical={false}
-          //   style={styles.listData}
-          numColumns={3}
-          data={data}
-          renderItem={(itemData) => {
-            return (
-              <DiaryWidget
-                src={itemData.item.imgSrc}
-                title={itemData.item.title}
-                week={itemData.item.week}
-                style={styles.listItem}
-              />
-            );
-          }}
-        /> */}
         <ScrollView>
           <View style={styles.diaryWidgetContainer}>
             {diaries &&

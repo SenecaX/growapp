@@ -36,23 +36,45 @@ export async function getDiariesWidgetInfo() {
         mediumType: response.data[key].diaryInfo.mediumType,
       },
 
-      week: [
-        {
-          weekNum: response.data[key].week[0].weekNum,
-          type: response.data[key].week[0].type,
-          typeName: response.data[key].week[0].typeName,
-          vegetationLights: response.data[key].week[0].vegetationLights,
-          floweringLights: response.data[key].week[0].floweringLights,
-          lightSchedule: response.data[key].week[0].lightSchedule,
-          pH: response.data[key].week[0].pH,
-          airHumidity: response.data[key].week[0].airHumidity,
-          potSize: response.data[key].week[0].potSize,
-          watering: response.data[key].week[0].watering,
-        },
-      ],
+      week: populateWeek(response.data[key].week),
+
+      // week: [
+      //   {
+      //     weekNum: response.data[key].week[0].weekNum,
+      //     type: response.data[key].week[0].type,
+      //     typeName: response.data[key].week[0].typeName,
+      //     vegetationLights: response.data[key].week[0].vegetationLights,
+      //     floweringLights: response.data[key].week[0].floweringLights,
+      //     lightSchedule: response.data[key].week[0].lightSchedule,
+      //     pH: response.data[key].week[0].pH,
+      //     airHumidity: response.data[key].week[0].airHumidity,
+      //     potSize: response.data[key].week[0].potSize,
+      //     watering: response.data[key].week[0].watering,
+      //   },
+      // ],
     };
 
     diary.push(object);
+  }
+
+  function populateWeek(data) {
+    let listOfWeeks = [];
+    data.filter((week) => {
+      listOfWeeks.push({
+        weekNum: week.weekNum,
+        type: week.type,
+        typeName: week.typeName,
+        vegetationLights: week.vegetationLights,
+        floweringLights: week.floweringLights,
+        lightSchedule: week.lightSchedule,
+        pH: week.pH,
+        airHumidity: week.airHumidity,
+        potSize: week.potSize,
+        watering: week.watering,
+      });
+    });
+
+    return data;
   }
 
   return diary;
