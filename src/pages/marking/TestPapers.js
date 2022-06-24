@@ -1,15 +1,19 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Linking } from "react-native";
 import AddStudentForm from "../../components/marking/AddStudentForm";
 import { useNavigation } from "@react-navigation/native";
 import { postStudent } from "../../util/httpMarking";
-
 function TestPapers(props) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Administrator mode</Text>
-    </View>
-  );
-}
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Administrator mode</Text>
+        <Text
+          style={{ color: 'blue' }}
+          onPress={() => Linking.openURL('../test.pdf')}>
+          example
+        </Text>
+      </View>
+    );
+  }
 
 const styles = StyleSheet.create({
   container: {
