@@ -5,16 +5,18 @@ import { useNavigation } from "@react-navigation/native";
 function ChooseWeekType(props) {
   const navigation = useNavigation();
 
+  const showSubmitBtn = true;
+
   function onBtnPressGermination() {
     navigation.navigate("GerminationScreen");
   }
 
   function onBtnPressVegetation() {
-    navigation.navigate("Diary");
+    navigation.navigate("Diary", showSubmitBtn);
   }
 
   function onBtnPressFlowering() {
-    navigation.navigate("Diary");
+    navigation.navigate("Diary", showSubmitBtn);
   }
 
   return (

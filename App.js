@@ -100,6 +100,20 @@ function AuthenticatedStack() {
       }}
     >
       <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
         name="Marking Home"
         component={MarkingHome}
         options={{
@@ -117,21 +131,6 @@ function AuthenticatedStack() {
       <Stack.Screen
         name="ChooseWeekType"
         component={ChooseWeekType}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
