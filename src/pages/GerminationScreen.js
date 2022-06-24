@@ -57,7 +57,11 @@ function GerminationScreen(props) {
         <Title2 title="Photos" />
 
         <View style={styles.photoBtnContainer}>
-          <CustomLargeButton name="Add photos" onPress={testNavigate()} />
+          <CustomLargeButton
+            name="Add photos"
+            onPress={testNavigate()}
+            color="#27ae60"
+          />
         </View>
       </View>
 

@@ -5,11 +5,11 @@ import { useState } from "react";
 function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
   const [inputs, setInputs] = useState({
     name: {
-      value: defaultValues ? defaultValues.name : "",
+      value: defaultValues ? defaultValues.typeName : "",
       isValid: true,
     },
     week: {
-      value: defaultValues ? defaultValues.week : "",
+      value: defaultValues ? defaultValues.weekNum : "",
       isValid: true,
     },
     lightSchedule: {
@@ -32,6 +32,14 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
       value: defaultValues ? defaultValues.watering : "",
       isValid: true,
     },
+    vegetationLights: {
+      value: defaultValues ? defaultValues.VegetationLights : "",
+      isValid: true,
+    },
+    floweringLights: {
+      value: defaultValues ? defaultValues.floweringLights : "",
+      isValid: true,
+    },
   });
 
   function inputChangeHandler(inputIdentifier, enteredValue) {
@@ -52,6 +60,8 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
       airHumidity: inputs.airHumidity,
       potSize: inputs.potSize,
       watering: inputs.watering,
+      floweringLights: inputs.floweringLights,
+      vegetationLights: inputs.vegetationLights,
     };
 
     const nameIsValid = data.name.length > 0;
@@ -213,6 +223,40 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
               keyboardType: "default",
               onChangeText: inputChangeHandler.bind(this, "watering"),
               value: inputs.watering.value,
+            }}
+          />
+          {formIsInvalid && (
+            <Text style={styles.errorText}>
+              Invalid input values. Please check your submission.
+            </Text>
+          )}
+        </View>
+
+        <View style={styles.container}>
+          <CustomInput
+            label="vegetationLights"
+            // invalid={!inputs.vegetationLights.isValid}
+            textInputConfig={{
+              keyboardType: "default",
+              onChangeText: inputChangeHandler.bind(this, "vegetationLights"),
+              value: inputs.vegetationLights.value,
+            }}
+          />
+          {formIsInvalid && (
+            <Text style={styles.errorText}>
+              Invalid input values. Please check your submission.
+            </Text>
+          )}
+        </View>
+
+        <View>
+          <CustomInput
+            label="floweringLights"
+            // invalid={!inputs.floweringLights.isValid}
+            textInputConfig={{
+              keyboardType: "default",
+              onChangeText: inputChangeHandler.bind(this, "floweringLights"),
+              value: inputs.floweringLights.value,
             }}
           />
           {formIsInvalid && (

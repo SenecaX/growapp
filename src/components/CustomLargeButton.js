@@ -4,7 +4,10 @@ function CustomLargeButton(props) {
   const onBtnPress = () => {};
 
   return (
-    <Pressable onPress={onBtnPress} style={styles.btn}>
+    <Pressable
+      onPress={props.onBtnPress}
+      style={[styles.btn, { backgroundColor: props.color }]}
+    >
       <Text style={styles.text}>{props.name}</Text>
     </Pressable>
   );
@@ -13,9 +16,10 @@ function CustomLargeButton(props) {
 const styles = StyleSheet.create({
   titleContainer: {},
   btn: {
-    backgroundColor: "#27ae60",
+    // backgroundColor: props.color,
     padding: 10,
     borderRadius: 16,
+    marginBottom: 20,
   },
   text: {
     color: "#fff",

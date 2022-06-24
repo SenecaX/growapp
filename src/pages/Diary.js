@@ -4,6 +4,8 @@ import {
   FlatList,
   ScrollView,
   SafeAreaView,
+  Pressable,
+  Text,
 } from "react-native";
 import Title from "../components/Title";
 import Title2 from "../components/Title2";
@@ -16,9 +18,13 @@ import PlantGrowthStatusForm from "../components/PlantGrowthStatusForm";
 import Carousel from "react-native-snap-carousel";
 import { getDiariesByKey } from "../util/http";
 import { useContext, useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 function Diary(props) {
+  const navigation = useNavigation();
+
   const diary = props.route.params;
+  let weekNumber = 0;
 
   useEffect(() => {
     async function getDiariesByName() {
@@ -28,43 +34,43 @@ function Diary(props) {
     getDiariesByName();
   }, []);
 
-  const data = [
-    {
-      key: 1,
-      title: "Week 0",
-      weekType: "Ger",
-    },
-    {
-      key: 2,
-      title: "Week 1",
-      weekType: "Veg",
-    },
-    {
-      key: 3,
-      title: "Week 2",
-      weekType: "Veg",
-    },
-    {
-      key: 4,
-      title: "Week 3",
-      weekType: "Veg",
-    },
-    {
-      key: 5,
-      title: "Week 6",
-      weekType: "Veg",
-    },
-    {
-      key: 6,
-      title: "Week 6",
-      weekType: "Flo",
-    },
-    {
-      key: 7,
-      title: "Week 7",
-      weekType: "Flo",
-    },
-  ];
+  // const data = [
+  //   {
+  //     key: 1,
+  //     title: "Week 0",
+  //     weekType: "Ger",
+  //   },
+  //   {
+  //     key: 2,
+  //     title: "Week 1",
+  //     weekType: "Veg",
+  //   },
+  //   {
+  //     key: 3,
+  //     title: "Week 2",
+  //     weekType: "Veg",
+  //   },
+  //   {
+  //     key: 4,
+  //     title: "Week 3",
+  //     weekType: "Veg",
+  //   },
+  //   {
+  //     key: 5,
+  //     title: "Week 6",
+  //     weekType: "Veg",
+  //   },
+  //   {
+  //     key: 6,
+  //     title: "Week 6",
+  //     weekType: "Flo",
+  //   },
+  //   {
+  //     key: 7,
+  //     title: "Week 7",
+  //     weekType: "Flo",
+  //   },
+  // ];
 
   const carouselItems = [
     {
@@ -100,6 +106,12 @@ function Diary(props) {
         <Text>{item.text}</Text>
       </View>
     );
+  }
+
+  function getWeekNum(weekNum) {}
+
+  function goToNewWeekTypeScreen() {
+    navigation.navigate("ChooseWeekType");
   }
 
   return (
@@ -141,28 +153,37 @@ function Diary(props) {
 
           {/* <WeekWidget title="Week 1" weekType="Ger" /> */}
 
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={data}
-            renderItem={(itemData) => {
-              return (
-                <WeekWidget
-                  weekType={itemData.item.weekType}
-                  title={itemData.item.title}
-                />
-              );
-            }}
-          />
+          <View style={styles.weekWidgetContainer}>
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={diary.week}
+              renderItem={(itemData) => {
+                return (
+                  <WeekWidget
+                    weekType={itemData.item.type}
+                    title={itemData.item.weekNum}
+                    getWeek={getWeekNum}
+                  />
+                );
+              }}
+            />
 
-          <View></View>
+            <View>
+              <Pressable onPress={goToNewWeekTypeScreen}>
+                <View>
+                  <Text style={styles.plusLabel}>+</Text>
+                </View>
+              </Pressable>
+            </View>
+          </View>
         </View>
 
         <View style={styles.sectionD}>
           <View>
             <Title2 title="Grow Conditions" />
           </View>
-          <PlantGrowthStatusForm />
+          <PlantGrowthStatusForm defaultValues={diary.week[weekNumber]} />
         </View>
 
         <View style={styles.sectionC}>
@@ -225,6 +246,15 @@ const styles = StyleSheet.create({
   sectionD: {
     alignItems: "center",
     marginTop: 20,
+  },
+  weekWidgetContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  plusLabel: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
 });
 

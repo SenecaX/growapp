@@ -89,7 +89,12 @@ function GermScreen(props) {
         <View style={styles.title1}>
           <Title2 title="Weeks" />
 
-          <WeekWidget weekType="" title="" plus="+" show={true} />
+          {/* <WeekWidget weekType="" title="" plus="+" show={true} /> */}
+
+          <View style={styles.weekWidgetContainer}>
+            <Text style={styles.weekType}>Germ</Text>
+            <Text style={styles.title}>Week 0</Text>
+          </View>
         </View>
       </View>
 
@@ -97,7 +102,11 @@ function GermScreen(props) {
         <Title2 title="Photos" />
 
         <View style={styles.photoBtnContainer}>
-          <CustomLargeButton name="Add photos" onPress={testNavigate()} />
+          <CustomLargeButton
+            name="Add photos"
+            onPress={testNavigate()}
+            color="#27ae60"
+          />
         </View>
       </View>
 
@@ -123,7 +132,11 @@ function GermScreen(props) {
         </View>
 
         <View style={styles.photoBtnContainer}>
-          <CustomLargeButton name="Save" onPress={testNavigate()} />
+          <CustomLargeButton
+            name="Save"
+            onPress={testNavigate()}
+            color="#27ae60"
+          />
         </View>
 
         {/* <View style={styles.tagContainer}>
@@ -189,6 +202,15 @@ const styles = StyleSheet.create({
   },
   label: {
     flex: 1,
+  },
+  weekWidgetContainer: {
+    backgroundColor: "#2ecc71",
+    height: 60,
+    width: 60,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    fontWeight: "bold",
   },
 });
 
