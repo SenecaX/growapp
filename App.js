@@ -113,6 +113,22 @@ function AuthenticatedStack() {
           ),
         }}
       />
+
+      <Stack.Screen
+        name="NewDiary"
+        component={NewDiary}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
       <Stack.Screen
         name="Marking Home"
         component={MarkingHome}
@@ -236,21 +252,6 @@ function AuthenticatedStack() {
       <Stack.Screen
         name="Upload"
         component={Upload}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="NewDiary"
-        component={NewDiary}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton

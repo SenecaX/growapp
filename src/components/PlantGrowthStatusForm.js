@@ -1,8 +1,15 @@
 import { StyleSheet, View, Text, Button, ScrollView } from "react-native";
 import CustomInput from "../components/CustomInput";
 import { useState } from "react";
+import { post } from "../util/http";
 
-function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
+function PlantGrowthStatusForm({
+  onSubmit,
+  onCancel,
+  defaultValues,
+  showBtns,
+  diary,
+}) {
   const [inputs, setInputs] = useState({
     name: {
       value: defaultValues ? defaultValues.typeName : "",
@@ -33,7 +40,7 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
       isValid: true,
     },
     vegetationLights: {
-      value: defaultValues ? defaultValues.VegetationLights : "",
+      value: defaultValues ? defaultValues.vegetationLights : "",
       isValid: true,
     },
     floweringLights: {
@@ -53,15 +60,15 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
 
   function submitHandler() {
     const data = {
-      name: inputs.name,
-      week: inputs.week,
-      lightSchedule: inputs.lightSchedule,
-      pH: inputs.pH,
-      airHumidity: inputs.airHumidity,
-      potSize: inputs.potSize,
-      watering: inputs.watering,
-      floweringLights: inputs.floweringLights,
-      vegetationLights: inputs.vegetationLights,
+      name: inputs.name.value,
+      week: inputs.week.value,
+      lightSchedule: inputs.lightSchedule.value,
+      pH: inputs.pH.value,
+      airHumidity: inputs.airHumidity.value,
+      potSize: inputs.potSize.value,
+      watering: inputs.watering.value,
+      floweringLights: inputs.floweringLights.value,
+      vegetationLights: inputs.vegetationLights.value,
     };
 
     const nameIsValid = data.name.length > 0;
@@ -71,6 +78,8 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
     const airHumidityIsValid = data.airHumidity.length > 0;
     const potSizeIsValid = data.potSize.length > 0;
     const wateringIsValid = data.watering.length > 0;
+    const vegetationLightsIsValid = data.vegetationLights.length > 0;
+    const floweringLightsIsValid = data.floweringLights.length > 0;
 
     if (!nameIsValid) {
       setInputs((curInputs) => {
@@ -91,23 +100,37 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
             value: curInputs.watering.value,
             isValid: wateringIsValid,
           },
+          vegetationLights: {
+            value: curInputs.vegetationLights.value,
+            isValid: vegetationLightsIsValid,
+          },
+          floweringLights: {
+            value: curInputs.floweringLights.value,
+            isValid: floweringLightsIsValid,
+          },
         };
       });
-      return;
+      // return;
     }
 
-    onSubmit(data);
+    diary.diary.week.push(data);
+
+    onSubmit(diary);
   }
 
-  const formIsInvalid =
-    !inputs.name.isValid ||
-    !inputs.name.isValid ||
-    !inputs.week.isValid ||
-    !inputs.lightSchedule.isValid ||
-    !inputs.pH.isValid ||
-    !inputs.airHumidity.isValid ||
-    !inputs.potSize.isValid ||
-    !inputs.watering.isValid;
+  // const formIsInvalid =
+  //   !inputs.name.isValid ||
+  //   !inputs.name.isValid ||
+  //   !inputs.week.isValid ||
+  //   !inputs.lightSchedule.isValid ||
+  //   !inputs.pH.isValid ||
+  //   !inputs.airHumidity.isValid ||
+  //   !inputs.potSize.isValid ||
+  //   !inputs.vegetationLights.isValid ||
+  //   !inputs.floweringLights.isValid ||
+  //   !inputs.watering.isValid;
+
+  const formIsInvalid = false;
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -115,7 +138,7 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
         <View style={styles.inputContainer}>
           <CustomInput
             label="name"
-            invalid={!inputs.name.isValid}
+            // invalid={!inputs.name.isValid}
             style={styles.errorInput}
             textInputConfig={{
               keyboardType: "default",
@@ -133,7 +156,7 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
         <View>
           <CustomInput
             label="week"
-            invalid={!inputs.week.isValid}
+            // invalid={!inputs.week.isValid}
             textInputConfig={{
               keyboardType: "default",
               onChangeText: inputChangeHandler.bind(this, "week"),
@@ -150,7 +173,7 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
         <View>
           <CustomInput
             label="lightSchedule"
-            invalid={!inputs.lightSchedule.isValid}
+            // invalid={!inputs.lightSchedule.isValid}
             textInputConfig={{
               keyboardType: "default",
               onChangeText: inputChangeHandler.bind(this, "lightSchedule"),
@@ -167,7 +190,7 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
         <View>
           <CustomInput
             label="airHumidity"
-            invalid={!inputs.airHumidity.isValid}
+            // invalid={!inputs.airHumidity.isValid}
             textInputConfig={{
               keyboardType: "default",
               onChangeText: inputChangeHandler.bind(this, "airHumidity"),
@@ -184,7 +207,7 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
         <View>
           <CustomInput
             label="pH"
-            invalid={!inputs.pH.isValid}
+            // invalid={!inputs.pH.isValid}
             textInputConfig={{
               keyboardType: "default",
               onChangeText: inputChangeHandler.bind(this, "pH"),
@@ -201,7 +224,7 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
         <View style={styles.container}>
           <CustomInput
             label="potSize"
-            invalid={!inputs.potSize.isValid}
+            // invalid={!inputs.potSize.isValid}
             textInputConfig={{
               keyboardType: "default",
               onChangeText: inputChangeHandler.bind(this, "potSize"),
@@ -218,7 +241,7 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
         <View>
           <CustomInput
             label="watering"
-            invalid={!inputs.watering.isValid}
+            // invalid={!inputs.watering.isValid}
             textInputConfig={{
               keyboardType: "default",
               onChangeText: inputChangeHandler.bind(this, "watering"),
@@ -266,10 +289,12 @@ function PlantGrowthStatusForm({ onSubmit, onCancel, defaultValues }) {
           )}
         </View>
 
-        <View style={styles.btnContainer}>
-          <Button onPress={submitHandler} title="Submit"></Button>
-          <Button onPress={onCancel} title="Cancel"></Button>
-        </View>
+        {showBtns && (
+          <View style={styles.btnContainer}>
+            <Button onPress={submitHandler} title="Submit"></Button>
+            <Button onPress={onCancel} title="Cancel"></Button>
+          </View>
+        )}
       </View>
     </ScrollView>
   );

@@ -19,12 +19,32 @@ import Carousel from "react-native-snap-carousel";
 import { getDiariesByKey } from "../util/http";
 import { useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { putNewWeek } from "../util/http";
 
 function Diary(props) {
   const navigation = useNavigation();
 
-  const diary = props.route.params;
+  let diary = props.route.params || props.route.params.diary;
+
   let weekNumber = 0;
+  let roomType = "No Data";
+  let wateringType = "No Data";
+  let mediumType = "No Data";
+  let diaryWeek = diary.diaryInfo ? diary.week[weekNumber] : null;
+
+  if (props.route.params.diary) {
+    roomType = props.route.params.diary.diaryInfo.roomType;
+    wateringType = props.route.params.diary.diaryInfo.wateringType;
+    mediumType = props.route.params.diary.diaryInfo.mediumType;
+  }
+
+  let showBtns = props.route.params.showSubmitBtn === true ? true : false;
+
+  // if (typeof diary === "object" && !Array.isArray(diary) && diary !== null) {
+  //   roomType = diary.diaryInfo.roomType;
+  //   wateringType = diary.diaryInfo.wateringType;
+  //   mediumType = diary.diaryInfo.mediumType;
+  // }
 
   useEffect(() => {
     async function getDiariesByName() {
@@ -33,6 +53,11 @@ function Diary(props) {
 
     getDiariesByName();
   }, []);
+
+  function onSubmit(data) {
+    const id = data.id;
+    const res = putNewWeek(data.diary.id, data.diary);
+  }
 
   // const data = [
   //   {
@@ -111,7 +136,7 @@ function Diary(props) {
   function getWeekNum(weekNum) {}
 
   function goToNewWeekTypeScreen() {
-    navigation.navigate("ChooseWeekType");
+    navigation.navigate("ChooseWeekType", diary);
   }
 
   return (
@@ -124,7 +149,7 @@ function Diary(props) {
               <DiaryTopInfoWidget
                 src={require("../../assets/icons/room.png")}
                 label="Room type"
-                type={diary.diaryInfo.roomType}
+                type={roomType}
               />
             </View>
 
@@ -132,7 +157,7 @@ function Diary(props) {
               <DiaryTopInfoWidget
                 src={require("../../assets/icons/watering.png")}
                 label="Watering"
-                type={diary.diaryInfo.wateringType}
+                type={wateringType}
               />
             </View>
 
@@ -140,7 +165,7 @@ function Diary(props) {
               <DiaryTopInfoWidget
                 src={require("../../assets/icons/medium.png")}
                 label="Medium"
-                type={diary.diaryInfo.mediumType}
+                type={mediumType}
               />
             </View>
           </View>
@@ -183,7 +208,12 @@ function Diary(props) {
           <View>
             <Title2 title="Grow Conditions" />
           </View>
-          <PlantGrowthStatusForm defaultValues={diary.week[weekNumber]} />
+          <PlantGrowthStatusForm
+            defaultValues={diaryWeek}
+            showBtns={showBtns}
+            diary={diary}
+            onSubmit={onSubmit}
+          />
         </View>
 
         <View style={styles.sectionC}>

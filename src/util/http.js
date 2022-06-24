@@ -16,14 +16,15 @@ export async function getDiariesWidgetInfo() {
   const diary = [];
 
   for (const key in response.data) {
-    const object2 = {
-      title: response.data[key].diaryInfo.name,
-      week: "Week " + response.data[key].week.length,
-      // imgSrc: require("../../assets/duck.jpeg"),
-      key: response.data[key].diaryInfo.name,
-    };
+    // const object2 = {
+    //   title: response.data[key].diaryInfo.name,
+    //   week: "Week " + response.data[key].week.length,
+    //   // imgSrc: require("../../assets/duck.jpeg"),
+    //   key: response.data[key].diaryInfo.name,
+    // };
 
     const object = {
+      id: key,
       title: response.data[key].diaryInfo.name,
       week: "Week " + response.data[key].week.length,
       // imgSrc: require("../../assets/duck.jpeg"),
@@ -111,7 +112,7 @@ export async function getDiaries() {
   return diary;
 }
 
-export function put(id, data) {
+export function putNewWeek(id, data) {
   return axios.put(BACKEND_URL + `/diary/${id}.json`, data);
 }
 

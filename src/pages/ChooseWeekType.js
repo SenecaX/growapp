@@ -6,17 +6,21 @@ function ChooseWeekType(props) {
   const navigation = useNavigation();
 
   const showSubmitBtn = true;
+  const data = {
+    showSubmitBtn: true,
+    diary: props.route.params,
+  };
 
   function onBtnPressGermination() {
     navigation.navigate("GerminationScreen");
   }
 
   function onBtnPressVegetation() {
-    navigation.navigate("Diary", showSubmitBtn);
+    navigation.navigate("Diary", data);
   }
 
   function onBtnPressFlowering() {
-    navigation.navigate("Diary", showSubmitBtn);
+    navigation.navigate("Diary", data);
   }
 
   return (
