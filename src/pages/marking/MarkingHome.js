@@ -30,6 +30,10 @@ function MarkingHome(props) {
     navigation.navigate("MarkingView");
   }
 
+  function goToAnalytics() {
+    navigation.navigate("AnalyticsView");
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
@@ -62,7 +66,7 @@ function MarkingHome(props) {
               goToScreen={goToMarkingView}
             />
 
-            <CardButton btnName="Analytics" goToScreen={goToAddStudent} />
+            <CardButton btnName="Analytics" goToScreen={goToAnalytics} />
           </View>
 
           <View style={styles.topSide}>
