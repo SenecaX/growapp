@@ -34,6 +34,10 @@ function MarkingHome(props) {
     navigation.navigate("AnalyticsView");
   }
 
+  function goToTestPapers() {
+    navigation.navigate("TestPapers");
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
@@ -70,7 +74,11 @@ function MarkingHome(props) {
           </View>
 
           <View style={styles.topSide}>
-            <CardButton btnName="Test papers" style={styles.leftBtn} />
+            <CardButton
+              btnName="Test papers"
+              style={styles.leftBtn}
+              goToScreen={goToTestPapers}
+            />
 
             <CardButton btnName="Settings" />
           </View>
