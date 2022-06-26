@@ -49,7 +49,11 @@ function AddMarkingView(props) {
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
       <Text>Marking View</Text>
-      <MarkingViewForm onSubmit={onSubmit} isTermShown={false} />
+      <MarkingViewForm
+        onSubmit={onSubmit}
+        isTermShown={true}
+        btnTitle="Search"
+      />
       {<TableView markings={markings} />}
     </View>
   );

@@ -1,9 +1,27 @@
 import { StyleSheet, View, Text, Button, ScrollView } from "react-native";
 import CustomInput from "../CustomInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
+import { getAllStudentsFromBack } from "../../util/httpMarking";
 
-function MarkingViewForm({ onSubmit, onCancel, defaultValues, isTermShown }) {
+function MarkingViewForm({
+  onSubmit,
+  onCancel,
+  defaultValues,
+  isTermShown,
+  btnTitle,
+}) {
+  const [students, setStudents] = useState([]);
+
+  // Get all students
+  useEffect(() => {
+    async function getAllStudents() {
+      const students = await getAllStudentsFromBack();
+      setStudents(students);
+    }
+
+    getAllStudents();
+  }, []);
   const [inputs, setInputs] = useState({
     grade: {
       value: defaultValues ? defaultValues.grade : "",
@@ -116,6 +134,7 @@ function MarkingViewForm({ onSubmit, onCancel, defaultValues, isTermShown }) {
             <Picker.Item label="Please select the grade." value="Unknown" />
             <Picker.Item label="Grade 7" value="Grade7" />
             <Picker.Item label="Grade 8" value="Grade8" />
+            <Picker.Item label="Grade 9" value="Grade9" />
           </Picker>
         </View>
 
@@ -131,6 +150,7 @@ function MarkingViewForm({ onSubmit, onCancel, defaultValues, isTermShown }) {
             <Picker.Item label="Red" value="red" />
             <Picker.Item label="Blue" value="blue" />
             <Picker.Item label="Yellow" value="yellow" />
+            <Picker.Item label="Green" value="green" />
           </Picker>
         </View>
 
@@ -146,6 +166,8 @@ function MarkingViewForm({ onSubmit, onCancel, defaultValues, isTermShown }) {
             <Picker.Item label="English" value="english" />
             <Picker.Item label="Maths" value="maths" />
             <Picker.Item label="French" value="french" />
+            <Picker.Item label="Physics" value="physics" />
+            <Picker.Item label="Chemistry" value="chemistry" />
           </Picker>
         </View>
 
@@ -158,9 +180,18 @@ function MarkingViewForm({ onSubmit, onCancel, defaultValues, isTermShown }) {
             style={styles.picker}
           >
             <Picker.Item label="Please select a student." value="Unknown" />
-            <Picker.Item label="Jack Sparrow" value="jacksparrow" />
+            {/* <Picker.Item label="Jack Sparrow" value="jacksparrow" />
             <Picker.Item label="James Bond" value="jamesbond" />
-            <Picker.Item label="John" value="Terry" />
+            <Picker.Item label="John" value="Terry" /> */}
+            {students.map((student) => {
+              return (
+                <Picker.Item
+                  label={student.name + " " + student.surname}
+                  value={student.name}
+                  key={student.id}
+                />
+              );
+            })}
           </Picker>
         </View>
 
@@ -180,26 +211,28 @@ function MarkingViewForm({ onSubmit, onCancel, defaultValues, isTermShown }) {
             </Picker>
           </View>
         )}
-        <View style={styles.inputContainer}>
-          <CustomInput
-            label="marks"
-            invalid={!inputs.marks.isValid}
-            style={styles.errorInput}
-            textInputConfig={{
-              keyboardType: "default",
-              onChangeText: inputChangeHandler.bind(this, "marks"),
-              value: inputs.marks.value,
-            }}
-          />
-          {formIsInvalid && (
-            <Text style={styles.errorText}>
-              Invalid input values. Please check your submission.
-            </Text>
-          )}
-        </View>
+        {!isTermShown && (
+          <View style={styles.inputContainer}>
+            <CustomInput
+              label="marks"
+              invalid={!inputs.marks.isValid}
+              style={styles.errorInput}
+              textInputConfig={{
+                keyboardType: "default",
+                onChangeText: inputChangeHandler.bind(this, "marks"),
+                value: inputs.marks.value,
+              }}
+            />
+            {formIsInvalid && (
+              <Text style={styles.errorText}>
+                Invalid input values. Please check your submission.
+              </Text>
+            )}
+          </View>
+        )}
 
         <View style={styles.btnContainer}>
-          <Button onPress={submitHandler} title="Submit"></Button>
+          <Button onPress={submitHandler} title={btnTitle}></Button>
           {/* <Button onPress={onCancel} title="Cancel"></Button> */}
         </View>
       </View>

@@ -182,3 +182,23 @@ export async function postGrade(data) {
 // GET GRADE
 // GET SECTION
 // POST STUDENT
+
+// get student
+export async function getAllStudentsFromBack() {
+  const response = await axios.get(BACKEND_URL + "/student.json");
+
+  const students = [];
+
+  for (const key in response.data) {
+    const object = {
+      id: key,
+      grade: response.data[key].grade,
+      section: response.data[key].section,
+      name: response.data[key].name,
+      surname: response.data[key].surname,
+    };
+    students.push(object);
+  }
+
+  return students;
+}
