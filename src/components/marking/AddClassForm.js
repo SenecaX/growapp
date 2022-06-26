@@ -57,16 +57,17 @@ function AddClassForm({ onSubmit, onCancel, defaultValues }) {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View>
         <View style={styles.selectContainer}>
-          <Text style={styles.label}>Room type</Text>
+          <Text style={styles.label}>Grade</Text>
           <Picker
             selectedValue={inputs.grade.value}
             onValueChange={inputChangeHandler.bind(this, "grade")}
             mode="dropdown" // Android only
             style={styles.picker}
           >
-            <Picker.Item label="Please select the room type." value="Unknown" />
+            <Picker.Item label="Please select the grade." value="Unknown" />
             <Picker.Item label="Grade 7" value="Grade7" />
             <Picker.Item label="Grad 8" value="Grade8" />
+            <Picker.Item label="Grad 9" value="Grade9" />
           </Picker>
         </View>
 

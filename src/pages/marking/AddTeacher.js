@@ -18,7 +18,7 @@ function AddClass(props) {
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
       <Text style={styles.title}>Administrator mode</Text>
-      <Text> Add Class</Text>
+      <Text> Add Grade</Text>
 
       <AddStudentForm onSubmit={confirmHandler} onCancel={onCancel} />
     </View>

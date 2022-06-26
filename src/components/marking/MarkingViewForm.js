@@ -3,7 +3,7 @@ import CustomInput from "../CustomInput";
 import { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 
-function MarkingViewForm({ onSubmit, onCancel, defaultValues }) {
+function MarkingViewForm({ onSubmit, onCancel, defaultValues, isTermShown }) {
   const [inputs, setInputs] = useState({
     grade: {
       value: defaultValues ? defaultValues.grade : "",
@@ -47,17 +47,25 @@ function MarkingViewForm({ onSubmit, onCancel, defaultValues }) {
       subject: inputs.subject.value,
       student: inputs.student.value,
       term: inputs.term.value,
-      marks: inputs.marks.value,
+      // marks: inputs.marks.value,
     };
 
-    const gradeIsValid = data.diaryInfo.grade.value !== "";
-    const sectionIsValid = data.diaryInfo.section.value !== "";
-    const subjectIsValid = data.diaryInfo.subject.value !== "";
-    const studentIsValid = data.diaryInfo.student.value !== "";
-    const termIsValid = data.diaryInfo.term.value !== "";
-    const marksIsValid = data.diaryInfo.marks.value !== "";
+    if (data.term === "term1") {
+      data.marks1 = inputs.marks.value;
+    } else if (data.term === "term2") {
+      data.marks2 = inputs.marks.value;
+    } else {
+      data.marks3 = inputs.marks.value;
+    }
 
-    if (!nameIsValid) {
+    const gradeIsValid = true;
+    const sectionIsValid = true;
+    const subjectIsValid = true;
+    const studentIsValid = true;
+    const termIsValid = true;
+    const marksIsValid = true;
+
+    if (!gradeIsValid) {
       setInputs((curInputs) => {
         return {
           grade: {
@@ -92,7 +100,7 @@ function MarkingViewForm({ onSubmit, onCancel, defaultValues }) {
     onSubmit(data);
   }
 
-  const formIsInvalid = !inputs.grade.isValid || !inputs.section.isValid;
+  const formIsInvalid = false;
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -156,21 +164,22 @@ function MarkingViewForm({ onSubmit, onCancel, defaultValues }) {
           </Picker>
         </View>
 
-        <View style={styles.selectContainer}>
-          <Text style={styles.label}>term</Text>
-          <Picker
-            selectedValue={inputs.term.value}
-            onValueChange={inputChangeHandler.bind(this, "term")}
-            mode="dropdown" // Android only
-            style={styles.picker}
-          >
-            <Picker.Item label="Please select a term." value="Unknown" />
-            <Picker.Item label="Term 1" value="term1" />
-            <Picker.Item label="Term 2" value="term2" />
-            <Picker.Item label="Term 3" value="term3" />
-          </Picker>
-        </View>
-
+        {!isTermShown && (
+          <View style={styles.selectContainer}>
+            <Text style={styles.label}>term</Text>
+            <Picker
+              selectedValue={inputs.term.value}
+              onValueChange={inputChangeHandler.bind(this, "term")}
+              mode="dropdown" // Android only
+              style={styles.picker}
+            >
+              <Picker.Item label="Please select a term." value="Unknown" />
+              <Picker.Item label="Term 1" value="term1" />
+              <Picker.Item label="Term 2" value="term2" />
+              <Picker.Item label="Term 3" value="term3" />
+            </Picker>
+          </View>
+        )}
         <View style={styles.inputContainer}>
           <CustomInput
             label="marks"

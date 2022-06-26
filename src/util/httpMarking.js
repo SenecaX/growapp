@@ -90,20 +90,95 @@ export function deleting(id) {
   return axios.delete(BACKEND_URL + `/marking/${id}.json`);
 }
 
-export async function postClass(data) {
-  const response = await axios.post(BACKEND_URL + "/marking.json", data);
-  const id = response.data.section + response.data.section;
+export async function postStudentMarking(data) {
+  const response = await axios.post(BACKEND_URL + "/student.json", data);
+  const id = Math.floor(Math.random() * 10) + 10000;
   return id;
 }
 
+// POST CLASS
+
+// GET CLASSES
+// export async function getClasses() {
+//   const response = await axios.get(BACKEND_URL + "/class.json");
+
+//   const marking = [];
+
+//   for (const key in response.data) {
+//     const object = {
+//       id: key,
+//       grade: response.data[key].markingInfo.name,
+//       section: response.data[key].markingInfo.name,
+//     };
+//     marking.push(object);
+//   }
+
+//   return marking;
+// }
+
+// POST Student
 export async function postStudent(data) {
   const response = await axios.post(BACKEND_URL + "/student.json", data);
   const id = response.data.name + response.data.surname;
   return id;
 }
 
-export async function postStudentMarking(data) {
-  const response = await axios.post(BACKEND_URL + "/student.json", data);
-  const id = Math.floor(Math.random() * 10) + 10000;
+// GET grade
+export async function getGrade() {
+  const response = await axios.get(BACKEND_URL + "/grade.json");
+
+  const marking = [];
+
+  for (const key in response.data) {
+    const object = {
+      id: key,
+      grade: response.data[key].grade,
+      section: response.data[key].section,
+    };
+    marking.push(object);
+  }
+
+  return marking;
+}
+
+// POST Marking
+export async function postMarking(data) {
+  const response = await axios.post(BACKEND_URL + "/marking.json", data);
+  const id = response.data.name + response.data.surname;
   return id;
 }
+
+// GET Marking
+export async function getMarkings() {
+  const response = await axios.get(BACKEND_URL + "/marking.json");
+
+  const marking = [];
+
+  for (const key in response.data) {
+    const object = {
+      id: key,
+      grade: response.data[key].grade,
+      section: response.data[key].section,
+      student: response.data[key].student,
+      subject: response.data[key].subject,
+      term: response.data[key].term,
+      marks1: +response.data[key].marks1,
+      marks2: +response.data[key].marks2,
+      marks3: +response.data[key].marks3,
+    };
+    marking.push(object);
+  }
+
+  return marking;
+}
+
+// POST GRADE
+export async function postGrade(data) {
+  const response = await axios.post(BACKEND_URL + "/grade.json", data);
+  const id = response.data.section + response.data.section;
+  return id;
+}
+
+// GET GRADE
+// GET SECTION
+// POST STUDENT

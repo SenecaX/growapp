@@ -139,7 +139,7 @@ function NewDiaryForm({ onSubmit, onCancel, defaultValues }) {
         <View style={styles.inputContainer}>
           <CustomInput
             label="name"
-            invalid={!inputs.name.isValid}
+            // invalid={!inputs.name.isValid}
             style={styles.errorInput}
             textInputConfig={{
               keyboardType: "default",

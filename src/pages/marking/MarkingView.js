@@ -1,19 +1,36 @@
 import { StyleSheet, View, Text } from "react-native";
 import MarkingViewForm from "../../components/marking/MarkingViewForm";
 import TableView from "../../components/marking/TableView";
-import { postStudentMarking } from "../../util/httpMarking";
+import CardButton from "../../components/marking/CardButton";
+
+import { postMarking } from "../../util/httpMarking";
+import { useNavigation } from "@react-navigation/native";
 
 function MarkingView(props) {
-  async function onSubmit(data) {
-    const id = await post(data);
+  const navigation = useNavigation();
+
+  async function onSubmit(data) {}
+
+  function goToAddMarkingView() {
+    navigation.navigate("AddMarkingView");
+  }
+  function goToViewMarking() {
+    navigation.navigate("ViewMarkingView");
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{props.title}</Text>
-      <Text>Marking View</Text>
-      <MarkingViewForm onSubmit={onSubmit} />
-      <TableView />
+      <Text>Marking Section</Text>
+
+      <View style={styles.viewContainer}>
+        <CardButton
+          btnName="Add Marking"
+          style={styles.leftBtn}
+          goToScreen={goToAddMarkingView}
+        />
+
+        <CardButton btnName="View Marking" goToScreen={goToViewMarking} />
+      </View>
     </View>
   );
 }
@@ -21,13 +38,10 @@ function MarkingView(props) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#27ae60",
-    paddingBottom: 10,
-  },
+  title: {},
 });
 
 export default MarkingView;

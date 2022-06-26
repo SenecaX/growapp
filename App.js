@@ -72,6 +72,8 @@ import MarkingView from "./src/pages/marking/MarkingView";
 import AnalyticsView from "./src/pages/marking/AnalyticsView";
 import ChooseWeekType from "./src/pages/ChooseWeekType";
 import TestPapers from "./src/pages/marking/TestPapers";
+import AddMarkingView from "./src/pages/marking/AddMarkingView";
+import ViewMarkingView from "./src/pages/marking/ViewMarkingView";
 
 const Stack = createNativeStackNavigator();
 
@@ -101,20 +103,6 @@ function AuthenticatedStack() {
       }}
     >
       <Stack.Screen
-        name="Test papers"
-        component={TestPapers}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-      <Stack.Screen
         name="Marking Home"
         component={MarkingHome}
         options={{
@@ -130,8 +118,68 @@ function AuthenticatedStack() {
       />
 
       <Stack.Screen
+        name="AddMarkingView"
+        component={AddMarkingView}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="ViewMarkingView"
+        component={ViewMarkingView}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
         name="Home"
         component={HomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="MarkingView"
+        component={MarkingView}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="TestPapers"
+        component={TestPapers}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -222,21 +270,6 @@ function AuthenticatedStack() {
       <Stack.Screen
         name="AddStudent"
         component={AddStudent}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="MarkingView"
-        component={MarkingView}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton

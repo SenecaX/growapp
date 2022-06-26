@@ -3,7 +3,8 @@ import CustomInput from "../../components/CustomInput";
 import { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 
-function AddStudentForm({ onSubmit, onCancel, defaultValues }) {
+function AddStudentForm({ onSubmit, onCancel, defaultValues, grade }) {
+  let grading;
   const [inputs, setInputs] = useState({
     grade: {
       value: defaultValues ? defaultValues.grade : "",
@@ -24,6 +25,12 @@ function AddStudentForm({ onSubmit, onCancel, defaultValues }) {
   });
 
   function inputChangeHandler(inputIdentifier, enteredValue) {
+    grading = grade.filter((g) => {
+      return enteredValue === g.grade;
+    });
+
+    // filter the grades here
+
     setInputs((curInputValues) => {
       return {
         ...curInputValues,
@@ -31,6 +38,8 @@ function AddStudentForm({ onSubmit, onCancel, defaultValues }) {
       };
     });
   }
+
+  function getSectionByGrade() {}
 
   function submitHandler() {
     const data = {
@@ -77,35 +86,44 @@ function AddStudentForm({ onSubmit, onCancel, defaultValues }) {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View>
         <View style={styles.selectContainer}>
-          <Text style={styles.label}>Room type</Text>
+          <Text style={styles.label}>Grade</Text>
           <Picker
             selectedValue={inputs.grade.value}
             onValueChange={inputChangeHandler.bind(this, "grade")}
             mode="dropdown" // Android only
             style={styles.picker}
           >
-            <Picker.Item label="Please select the room type." value="Unknown" />
+            <Picker.Item label="Please select the grade." value="Unknown" />
             <Picker.Item label="Grade 7" value="Grade7" />
-            <Picker.Item label="Grad 8" value="Grade8" />
+            <Picker.Item label="Grade 8" value="Grade8" />
+            <Picker.Item label="Grade 9" value="Grade9" />
           </Picker>
         </View>
 
-        <View style={styles.inputContainer}>
-          <CustomInput
-            label="section"
-            invalid={!inputs.section.isValid}
-            style={styles.errorInput}
-            textInputConfig={{
-              keyboardType: "default",
-              onChangeText: inputChangeHandler.bind(this, "section"),
-              value: inputs.section.value,
-            }}
-          />
-          {formIsInvalid && (
-            <Text style={styles.errorText}>
-              Invalid input values. Please check your submission.
-            </Text>
-          )}
+        <View style={styles.selectContainer}>
+          <Text style={styles.label}>Section</Text>
+          <Picker
+            selectedValue={inputs.section.value}
+            onValueChange={inputChangeHandler.bind(this, "section")}
+            mode="dropdown" // Android only
+            style={styles.picker}
+          >
+            <Picker.Item label="Please select the class." value="Unknown" />
+            <Picker.Item label="Red" value="Red" />
+            <Picker.Item label="Blue" value="Blue" />
+            <Picker.Item label="Yellow" value="Yellow" />
+
+            {/* {grading &&
+              grading.map((grade, index) => {
+                return (
+                  <Picker.Item
+                    label={grade.section}
+                    value={index}
+                    key={index}
+                  />
+                );
+              })} */}
+          </Picker>
         </View>
 
         <View style={styles.inputContainer}>

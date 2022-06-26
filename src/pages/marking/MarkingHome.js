@@ -41,7 +41,7 @@ function MarkingHome(props) {
         <View style={styles.btbContainer}>
           <View style={styles.topSide}>
             <CardButton
-              btnName="Add class"
+              btnName="Add grade"
               style={styles.leftBtn}
               goToScreen={goToAddClass}
             />
