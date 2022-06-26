@@ -18,11 +18,14 @@ function MarkingViewForm({
   const [filteredSection, setFilteredSection] = useState([]);
   const [selectedSection, setSelectedSection] = useState("");
 
+  // grades Arr
   const [selectedGrade, setSelectedGrade] = useState("");
 
   // students Arr
   const [students, setStudents] = useState([]);
   const [filteredStudents, setFilteredStudents] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState([]);
+
 
   // Get all students
   useEffect(() => {
@@ -95,14 +98,16 @@ function MarkingViewForm({
 
   function inputChangeHandler(inputIdentifier, enteredValue) {
     if (inputIdentifier && inputIdentifier === 'grade') {
-      console.log(enteredValue);
       setSelectedGrade(enteredValue);
       filterSection(enteredValue);
       filterStudents(selectedSection, enteredValue);
     }
     if (inputIdentifier && (inputIdentifier === 'section')) {
-      setSelectedSection(enteredValue.section);
+      setSelectedSection(enteredValue);
       filterStudents(enteredValue, selectedGrade);
+    }
+    if (inputIdentifier && (inputIdentifier === 'student')) {
+      setSelectedStudent(enteredValue);
     }
     setInputs((curInputValues) => {
       return {
@@ -114,10 +119,10 @@ function MarkingViewForm({
 
   function submitHandler() {
     const data = {
-      grade: inputs.grade.value,
-      section: inputs.section.value,
+      grade: selectedGrade,
+      section: selectedSection,
       subject: inputs.subject.value,
-      student: inputs.student.value,
+      student: selectedStudent,
       term: inputs.term.value,
       // marks: inputs.marks.value,
     };

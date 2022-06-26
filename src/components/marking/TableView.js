@@ -13,7 +13,6 @@ export default function TableView(props) {
       <DataTable>
         <DataTable.Header>
           <DataTable.Title>Surname</DataTable.Title>
-          <DataTable.Title>Grade</DataTable.Title>
           <DataTable.Title numeric>Term 1</DataTable.Title>
           <DataTable.Title numeric>Term 2</DataTable.Title>
           <DataTable.Title numeric>Term 3</DataTable.Title>
@@ -24,7 +23,6 @@ export default function TableView(props) {
             return (
               <DataTable.Row key={marking.id}>
                 <DataTable.Cell>{marking.student}</DataTable.Cell>
-                <DataTable.Cell>{marking.grade}</DataTable.Cell>
                 <DataTable.Cell numeric>
                   {isNaN(marking.marks1) ? 0 : marking.marks1}
                 </DataTable.Cell>

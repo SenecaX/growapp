@@ -6,18 +6,45 @@ import { useContext, useEffect, useState } from "react";
 
 function AddMarkingView(props) {
   const [markings, setMarkings] = useState("");
+  const [filteredMarkings, setFilteredMarkings] = useState("");
+
   const [showTable, setShowTable] = useState(false);
 
   useEffect(() => {
     async function getMarkingsFromBack() {
-      const m = await getMarkings();
-      setMarkings(m);
+      const markings = await getMarkings();
+      const filteredMarkings = Array.from(markings);
+      setFilteredMarkings(filteredMarkings);
+      setMarkings(markings);
     }
 
     getMarkingsFromBack();
   }, []);
 
   function onSubmit(data) {
+    const selectedGrade = data.grade || '';
+    const selectedSection = data.section || '';
+    const selectedStudent = data.student.length > 0 ? data.student : '';
+    const selectedSubject = data.subject || '';
+
+    const updatedData = markings.filter((item) => {
+      // filter section for grid
+      const item_data_section = `${item.section.toUpperCase()})`;
+      const text_data_section = selectedSection.toUpperCase();
+      // filter grade for grid
+      const item_data_grade = `${item.grade.toUpperCase()})`;
+      const text_data_grade = selectedGrade.toUpperCase();
+      // filter student for grid
+      const item_data_student = `${item.grade.toUpperCase()})`;
+      const text_data_student = selectedStudent.toUpperCase();
+      // filter subject for grid
+      const item_data_subject = `${item.grade.toUpperCase()})`;
+      const text_data_subject = selectedSubject.toUpperCase();
+      return item_data_grade.indexOf(text_data_grade) > -1 && item_data_section.indexOf(text_data_section) > -1 && item_data_student.indexOf(text_data_student) > -1 && item_data_subject.indexOf(text_data_subject) > -1;
+    });
+    setFilteredMarkings(updatedData);
+
+    /*
     // allMarkings = markings[0];
 
     // Data from search inputs user
@@ -36,7 +63,7 @@ function AddMarkingView(props) {
 
     let filteredData = [];
 
-    const copyMarkings = [...markings];
+    const copyMarkings =  Array.from(markings);
 
     copyMarkings.filter((marking) => {
       keys.filter((key, index) => {
@@ -45,8 +72,8 @@ function AddMarkingView(props) {
         }
       });
     });
+    */
 
-    setMarkings(filteredData);
 
     setShowTable(true);
   }
@@ -60,7 +87,7 @@ function AddMarkingView(props) {
         isTermShown={true}
         btnTitle="Search"
       />
-      {<TableView markings={markings} />}
+      {<TableView markings={filteredMarkings} />}
     </View>
   );
 }
