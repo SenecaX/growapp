@@ -24,6 +24,7 @@ function AddMarkingView(props) {
     console.log("data :>> ", data);
 
     // in "markings" you have array of markings
+    console.log("markings :>> ", markings);
 
     Object.keys(data).forEach((key) => {
       if (data[key] === "") {
