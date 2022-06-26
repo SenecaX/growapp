@@ -35,10 +35,10 @@ function AddMarkingView(props) {
       const item_data_grade = `${item.grade.toUpperCase()})`;
       const text_data_grade = selectedGrade.toUpperCase();
       // filter student for grid
-      const item_data_student = `${item.grade.toUpperCase()})`;
+      const item_data_student = `${item.student.toUpperCase()})`;
       const text_data_student = selectedStudent.toUpperCase();
       // filter subject for grid
-      const item_data_subject = `${item.grade.toUpperCase()})`;
+      const item_data_subject = `${item.subject.toUpperCase()})`;
       const text_data_subject = selectedSubject.toUpperCase();
       return item_data_grade.indexOf(text_data_grade) > -1 && item_data_section.indexOf(text_data_section) > -1 && item_data_student.indexOf(text_data_student) > -1 && item_data_subject.indexOf(text_data_subject) > -1;
     });
