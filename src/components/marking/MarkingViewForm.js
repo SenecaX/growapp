@@ -2,7 +2,8 @@ import { StyleSheet, View, Text, Button, ScrollView } from "react-native";
 import CustomInput from "../CustomInput";
 import { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
-import { getAllStudentsFromBack } from "../../util/httpMarking";
+import { getAllStudentsFromBack, getGrade } from "../../util/httpMarking";
+import { grades } from '../../constants/Form';
 
 function MarkingViewForm({
   onSubmit,
@@ -11,17 +12,60 @@ function MarkingViewForm({
   isTermShown,
   btnTitle,
 }) {
+
+  // section Arr
+  const [sections, setSection] = useState([]);
+  const [filteredSection, setFilteredSection] = useState([]);
+  const [selectedSection, setSelectedSection] = useState("");
+
+  const [selectedGrade, setSelectedGrade] = useState("");
+
+  // students Arr
   const [students, setStudents] = useState([]);
+  const [filteredStudents, setFilteredStudents] = useState([]);
 
   // Get all students
   useEffect(() => {
+    async function getSections() {
+      const sections = await getGrade();
+      const filteredSection = Array.from(sections);
+      setSection(sections);
+      setFilteredSection(filteredSection);
+    }
+
     async function getAllStudents() {
       const students = await getAllStudentsFromBack();
+      const filteredStudents = Array.from(students);
       setStudents(students);
+      setFilteredStudents(filteredStudents);
     }
 
     getAllStudents();
+    getSections();
   }, []);
+
+  function filterSection(text) {
+    const updatedData = sections.filter((item) => {
+      const item_data = `${item.grade.toUpperCase()})`;
+      const text_data = text.toUpperCase();
+      return item_data.indexOf(text_data) > -1;
+    });
+    setFilteredSection(updatedData);
+  }
+
+  function filterStudents(selectedSection = '', selectedGrade = '') {
+    const updatedData = students.filter((item) => {
+      // filter section for students
+      const item_data_section = `${item.section.toUpperCase()})`;
+      const text_data_section = selectedSection.toUpperCase();
+      // filter grade for students
+      const item_data_grade = `${item.grade.toUpperCase()})`;
+      const text_data_grade = selectedGrade.toUpperCase();
+      return item_data_grade.indexOf(text_data_grade) > -1 && item_data_section.indexOf(text_data_section) > -1;
+    });
+    setFilteredStudents(updatedData);
+  }
+
   const [inputs, setInputs] = useState({
     grade: {
       value: defaultValues ? defaultValues.grade : "",
@@ -50,6 +94,16 @@ function MarkingViewForm({
   });
 
   function inputChangeHandler(inputIdentifier, enteredValue) {
+    if (inputIdentifier && inputIdentifier === 'grade') {
+      console.log(enteredValue);
+      setSelectedGrade(enteredValue);
+      filterSection(enteredValue);
+      filterStudents(selectedSection, enteredValue);
+    }
+    if (inputIdentifier && (inputIdentifier === 'section')) {
+      setSelectedSection(enteredValue.section);
+      filterStudents(enteredValue, selectedGrade);
+    }
     setInputs((curInputValues) => {
       return {
         ...curInputValues,
@@ -132,9 +186,15 @@ function MarkingViewForm({
             style={styles.picker}
           >
             <Picker.Item label="Please select the grade." value="Unknown" />
-            <Picker.Item label="Grade 7" value="Grade7" />
-            <Picker.Item label="Grade 8" value="Grade8" />
-            <Picker.Item label="Grade 9" value="Grade9" />
+            {grades.map((grade) => {
+              return (
+                <Picker.Item
+                  label={grade.label}
+                  value={grade.value}
+                  key={grade.id}
+                />
+              );
+            })}
           </Picker>
         </View>
 
@@ -147,10 +207,15 @@ function MarkingViewForm({
             style={styles.picker}
           >
             <Picker.Item label="Please select the section." value="Unknown" />
-            <Picker.Item label="Red" value="red" />
-            <Picker.Item label="Blue" value="blue" />
-            <Picker.Item label="Yellow" value="yellow" />
-            <Picker.Item label="Green" value="green" />
+            {filteredSection.map((section) => {
+              return (
+                <Picker.Item
+                  label={section.section}
+                  value={section.section}
+                  key={section.id}
+                />
+              );
+            })}
           </Picker>
         </View>
 
@@ -183,7 +248,7 @@ function MarkingViewForm({
             {/* <Picker.Item label="Jack Sparrow" value="jacksparrow" />
             <Picker.Item label="James Bond" value="jamesbond" />
             <Picker.Item label="John" value="Terry" /> */}
-            {students.map((student) => {
+            {filteredStudents.map((student) => {
               return (
                 <Picker.Item
                   label={student.name + " " + student.surname}

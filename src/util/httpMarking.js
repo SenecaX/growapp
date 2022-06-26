@@ -123,7 +123,7 @@ export async function postStudent(data) {
   return id;
 }
 
-// GET grade
+// GET section grade
 export async function getGrade() {
   const response = await axios.get(BACKEND_URL + "/grade.json");
 

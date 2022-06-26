@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import ImagePicker from "react-native-image-picker";
 
 function Upload() {
+  /*
   function selectPhotoTapped() {
     const options = {
       title: "Select Photo",
@@ -35,7 +35,7 @@ function Upload() {
         };
       }
     });
-  }
+  }*/
   return (
     <View>
       <View style={styles.imageContainer}></View>
