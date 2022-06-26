@@ -20,6 +20,11 @@ function AddMarkingView(props) {
   function onSubmit(data) {
     // allMarkings = markings[0];
 
+    // Data from search inputs user
+    console.log("data :>> ", data);
+
+    // in "markings" you have array of markings
+
     Object.keys(data).forEach((key) => {
       if (data[key] === "") {
         delete data[key];
