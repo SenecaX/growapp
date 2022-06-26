@@ -14,15 +14,73 @@ import {
 } from "react-native";
 
 function TestPapers(props) {
+  useEffect(() => {}, []);
+
+  const SignedUploadButton = () => {
+    // useRequestPreSend(async ({ options }) => {
+    //   const timestamp = Date.now();
+
+    //   const response = await fetch(
+    //     "https://api.cloudinary.com/v1_1/dpwvv3be4/upload",
+    //     {
+    //       method: "POST",
+    //       body: {
+    //         //  param
+    //         upload_preset: UPLOAD_PRESET,
+    //         timestamp,
+    //       },
+    //     }
+    //   );
+    //   console.log("response :>> ", response);
+
+    //   const responseJson = await response.json();
+    //   console.log("responseJson :>> ", responseJson);
+
+    //   return {
+    //     options: {
+    //       destination: {
+    //         params: {
+    //           signature: responseJson.signature,
+    //           upload_preset: UPLOAD_PRESET,
+
+    //           timestamp,
+    //           api_key: API_KEY,
+    //         },
+    //       },
+    //     },
+    //   };
+    // });
+
+    // useItemFinishListener((item) => {
+    //   console.log(
+    //     `item ${item.id} finished uploading, response was: `,
+    //     item.uploadResponse,
+    //     item.uploadStatus
+    //   );
+    // });
+
+    return <UploadButton />;
+  };
+
+  function download() {
+    console.log("download");
+    FileSystem.downloadAsync(
+      "https://res.cloudinary.com/dpwvv3be4/image/upload/v1656257729/nmxe8qd1ozufpepiyjqm.webp"
+      // FileSystem.documentDirectory + "small.mp4"
+    )
+      .then(({ uri }) => {
+        console.log("uri :>> ", uri);
+        console.log("Finished downloading to ", uri);
+      })
+      .catch((error) => {
+        console.log("error :>> ", error);
+        console.error(error);
+      });
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Administrator mode</Text>
-      <Text
-        style={{ color: "blue" }}
-        onPress={() => Linking.openURL("../test.pdf")}
-      >
-        example
-      </Text>
 
       <Uploady
         destination={{
@@ -33,7 +91,8 @@ function TestPapers(props) {
           },
         }}
       >
-        <UploadButton />
+        {/* <UploadButton /> */}
+        {/* <SignedUploadButton /> */}
       </Uploady>
     </View>
   );

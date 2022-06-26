@@ -2,10 +2,17 @@ import { StyleSheet, View, Text } from "react-native";
 import MarkingViewForm from "../../components/marking/MarkingViewForm";
 import TableView from "../../components/marking/TableView";
 import { postMarking } from "../../util/httpMarking";
+import { useNavigation } from "@react-navigation/native";
 
 function AddMarkingView(props) {
+  const navigation = useNavigation();
+
   async function onSubmit(data) {
     const id = await postMarking(data);
+
+    if (id) {
+      navigation.goBack();
+    }
   }
 
   return (

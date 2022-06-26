@@ -102,6 +102,20 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
+      <Stack.Screen
+        name="Marking Home"
+        component={MarkingHome}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
 
       <Stack.Screen
         name="MarkingView"
@@ -119,23 +133,8 @@ function AuthenticatedStack() {
       />
 
       <Stack.Screen
-        name="Upload"
-        component={Upload}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="Marking Home"
-        component={MarkingHome}
+        name="TestPapers"
+        component={TestPapers}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -181,21 +180,6 @@ function AuthenticatedStack() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="TestPapers"
-        component={TestPapers}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -312,7 +296,6 @@ function AuthenticatedStack() {
           ),
         }}
       />
-
 
       <Stack.Screen
         name="Welcome"

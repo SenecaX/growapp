@@ -3,17 +3,21 @@ import { useNavigation } from "@react-navigation/native";
 import CardButton from "../../components/marking/CardButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext, useEffect, useState } from "react";
+import Title2 from "../../components/Title2";
 
 function MarkingHome(props) {
   const navigation = useNavigation();
   const [isAdmin, setIsAdmin] = useState(false);
+  let titleText = "";
 
   useEffect(() => {
     AsyncStorage.getItem("role").then((res) => {
       if (res === "ADMIN") {
         setIsAdmin(true);
+        titleText = "Welcome Admin!";
       } else {
         setIsAdmin(false);
+        titleText = "Welcome Educator!";
       }
     });
   }, []);
@@ -41,6 +45,8 @@ function MarkingHome(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
+      <Title2 title={titleText} />
+
       {isAdmin && (
         <View style={styles.btbContainer}>
           <View style={styles.topSide}>

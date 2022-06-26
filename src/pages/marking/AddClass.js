@@ -11,6 +11,7 @@ function AddClass(props) {
   }
 
   function onCancel() {
+    console.log("cancel");
     navigation.goBack();
   }
 
