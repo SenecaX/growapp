@@ -133,6 +133,21 @@ function AuthenticatedStack() {
       />
 
       <Stack.Screen
+        name="SettingView"
+        component={SettingView}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
         name="TestPapers"
         component={TestPapers}
         options={{

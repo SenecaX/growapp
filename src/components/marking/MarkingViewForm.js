@@ -3,7 +3,7 @@ import CustomInput from "../CustomInput";
 import { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { getAllStudentsFromBack, getGrade } from "../../util/httpMarking";
-import { grades } from '../../constants/Form';
+import { grades } from "../../constants/Form";
 
 function MarkingViewForm({
   onSubmit,
@@ -12,7 +12,6 @@ function MarkingViewForm({
   isTermShown,
   btnTitle,
 }) {
-
   // section Arr
   const [sections, setSection] = useState([]);
   const [filteredSection, setFilteredSection] = useState([]);
@@ -25,7 +24,6 @@ function MarkingViewForm({
   const [students, setStudents] = useState([]);
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState([]);
-
 
   // Get all students
   useEffect(() => {
@@ -56,7 +54,7 @@ function MarkingViewForm({
     setFilteredSection(updatedData);
   }
 
-  function filterStudents(selectedSection = '', selectedGrade = '') {
+  function filterStudents(selectedSection = "", selectedGrade = "") {
     const updatedData = students.filter((item) => {
       // filter section for students
       const item_data_section = `${item.section.toUpperCase()})`;
@@ -64,7 +62,10 @@ function MarkingViewForm({
       // filter grade for students
       const item_data_grade = `${item.grade.toUpperCase()})`;
       const text_data_grade = selectedGrade.toUpperCase();
-      return item_data_grade.indexOf(text_data_grade) > -1 && item_data_section.indexOf(text_data_section) > -1;
+      return (
+        item_data_grade.indexOf(text_data_grade) > -1 &&
+        item_data_section.indexOf(text_data_section) > -1
+      );
     });
     setFilteredStudents(updatedData);
   }
@@ -97,16 +98,16 @@ function MarkingViewForm({
   });
 
   function inputChangeHandler(inputIdentifier, enteredValue) {
-    if (inputIdentifier && inputIdentifier === 'grade') {
+    if (inputIdentifier && inputIdentifier === "grade") {
       setSelectedGrade(enteredValue);
       filterSection(enteredValue);
       filterStudents(selectedSection, enteredValue);
     }
-    if (inputIdentifier && (inputIdentifier === 'section')) {
+    if (inputIdentifier && inputIdentifier === "section") {
       setSelectedSection(enteredValue);
       filterStudents(enteredValue, selectedGrade);
     }
-    if (inputIdentifier && (inputIdentifier === 'student')) {
+    if (inputIdentifier && inputIdentifier === "student") {
       setSelectedStudent(enteredValue);
     }
     setInputs((curInputValues) => {
@@ -241,29 +242,31 @@ function MarkingViewForm({
           </Picker>
         </View>
 
-        <View style={styles.selectContainer}>
-          <Text style={styles.label}>student</Text>
-          <Picker
-            selectedValue={inputs.student.value}
-            onValueChange={inputChangeHandler.bind(this, "student")}
-            mode="dropdown" // Android only
-            style={styles.picker}
-          >
-            <Picker.Item label="Please select a student." value="Unknown" />
-            {/* <Picker.Item label="Jack Sparrow" value="jacksparrow" />
+        {!isTermShown && (
+          <View style={styles.selectContainer}>
+            <Text style={styles.label}>student</Text>
+            <Picker
+              selectedValue={inputs.student.value}
+              onValueChange={inputChangeHandler.bind(this, "student")}
+              mode="dropdown" // Android only
+              style={styles.picker}
+            >
+              <Picker.Item label="Please select a student." value="Unknown" />
+              {/* <Picker.Item label="Jack Sparrow" value="jacksparrow" />
             <Picker.Item label="James Bond" value="jamesbond" />
             <Picker.Item label="John" value="Terry" /> */}
-            {filteredStudents.map((student) => {
-              return (
-                <Picker.Item
-                  label={student.name + " " + student.surname}
-                  value={student.name}
-                  key={student.id}
-                />
-              );
-            })}
-          </Picker>
-        </View>
+              {filteredStudents.map((student) => {
+                return (
+                  <Picker.Item
+                    label={student.name + " " + student.surname}
+                    value={student.name}
+                    key={student.id}
+                  />
+                );
+              })}
+            </Picker>
+          </View>
+        )}
 
         {!isTermShown && (
           <View style={styles.selectContainer}>

@@ -162,9 +162,15 @@ export async function getMarkings() {
       student: response.data[key].student,
       subject: response.data[key].subject,
       term: response.data[key].term,
-      marks1: +response.data[key].marks1,
-      marks2: +response.data[key].marks2,
-      marks3: +response.data[key].marks3,
+      marks1: isNaN(+response.data[key].marks1)
+        ? 0
+        : +response.data[key].marks1,
+      marks2: isNaN(+response.data[key].marks2)
+        ? 0
+        : +response.data[key].marks2,
+      marks3: isNaN(+response.data[key].marks3)
+        ? 0
+        : +response.data[key].marks3,
     };
     marking.push(object);
   }

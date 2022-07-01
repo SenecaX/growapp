@@ -22,10 +22,10 @@ function AddMarkingView(props) {
   }, []);
 
   function onSubmit(data) {
-    const selectedGrade = data.grade || '';
-    const selectedSection = data.section || '';
-    const selectedStudent = data.student.length > 0 ? data.student : '';
-    const selectedSubject = data.subject || '';
+    const selectedGrade = data.grade || "";
+    const selectedSection = data.section || "";
+    const selectedStudent = data.student.length > 0 ? data.student : "";
+    const selectedSubject = data.subject || "";
 
     const updatedData = markings.filter((item) => {
       // filter section for grid
@@ -40,8 +40,26 @@ function AddMarkingView(props) {
       // filter subject for grid
       const item_data_subject = `${item.subject.toUpperCase()})`;
       const text_data_subject = selectedSubject.toUpperCase();
-      return item_data_grade.indexOf(text_data_grade) > -1 && item_data_section.indexOf(text_data_section) > -1 && item_data_student.indexOf(text_data_student) > -1 && item_data_subject.indexOf(text_data_subject) > -1;
+      return (
+        item_data_grade.indexOf(text_data_grade) > -1 &&
+        item_data_section.indexOf(text_data_section) > -1 &&
+        item_data_student.indexOf(text_data_student) > -1 &&
+        item_data_subject.indexOf(text_data_subject) > -1
+      );
     });
+
+    updatedData.sort((a, b) => {
+      return b.marks1 - a.marks1;
+    });
+
+    updatedData.sort((a, b) => {
+      return b.marks2 - a.marks2;
+    });
+
+    updatedData.sort((a, b) => {
+      return b.marks3 - a.marks3;
+    });
+
     setFilteredMarkings(updatedData);
 
     /*
@@ -73,7 +91,6 @@ function AddMarkingView(props) {
       });
     });
     */
-
 
     setShowTable(true);
   }
