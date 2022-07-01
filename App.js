@@ -76,7 +76,7 @@ import AddMarkingView from "./src/pages/marking/AddMarkingView";
 import ViewMarkingView from "./src/pages/marking/ViewMarkingView";
 import SettingView from './src/pages/Settings/Settings';
 import { Label } from './src/constants/Label';
-import { languageOpts, SELECTED_LANGUAGE } from './src/constants/General';
+import { languageOpts, themeOpts, SELECTED_LANGUAGE, SELECTED_THEME } from './src/constants/General';
 
 const Stack = createNativeStackNavigator();
 
@@ -97,17 +97,26 @@ function AuthStack() {
 
 function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
+
+  // insert default value for selected language in local storage
   if (!window.localStorage.getItem(SELECTED_LANGUAGE)) {
     window.localStorage.setItem(SELECTED_LANGUAGE, languageOpts[0].value);
   }
+  // insert default value for selected theme in local storage
+  if (!window.localStorage.getItem(SELECTED_THEME)) {
+    window.localStorage.setItem(SELECTED_THEME, themeOpts[window.localStorage.getItem(SELECTED_LANGUAGE)][1].value);
+  }
+  // define state for selected language
   const [selectedLanguage, setSelectedLanguage] = useState(window.localStorage.getItem(SELECTED_LANGUAGE));
+  // define state for selected theme
+  const [selectedTheme, setSelectedTheme] = useState(window.localStorage.getItem(SELECTED_THEME));
 
   return (
     <Stack.Navigator
       screenOptions={{
         headerStyle: { backgroundColor: Colors.primary500 },
         headerTintColor: "white",
-        contentStyle: { backgroundColor: Colors.primary100 },
+        contentStyle: { backgroundColor: Colors[selectedTheme].background },
       }}
     >
       <Stack.Screen
@@ -128,9 +137,10 @@ function AuthenticatedStack() {
             {...props}
             selectedLanguage={selectedLanguage}
             setSelectedLanguage={setSelectedLanguage}
+            selectedTheme={selectedTheme}
+            setSelectedTheme={setSelectedTheme}
           />}
       </Stack.Screen>
-
 
       <Stack.Screen
         name="Marking Home"

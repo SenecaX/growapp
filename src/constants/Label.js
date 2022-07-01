@@ -1,10 +1,12 @@
 export const Label = {
   en: {
     language: 'App language selection',
-    settingView: 'settings'
+    settingView: 'Settings',
+    theme: 'Theme'
   },
   fr: {
     language: 'Selection de langue',
-    settingView: 'parametres'
+    settingView: 'Paramètres',
+    theme: 'Thème'
   },
 };
