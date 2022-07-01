@@ -75,6 +75,8 @@ import TestPapers from "./src/pages/marking/TestPapers";
 import AddMarkingView from "./src/pages/marking/AddMarkingView";
 import ViewMarkingView from "./src/pages/marking/ViewMarkingView";
 import SettingView from './src/pages/Settings/Settings';
+import { Label } from './src/constants/Label';
+import { languageOpts, SELECTED_LANGUAGE } from './src/constants/General';
 
 const Stack = createNativeStackNavigator();
 
@@ -95,6 +97,10 @@ function AuthStack() {
 
 function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
+  if (!window.localStorage.getItem(SELECTED_LANGUAGE)) {
+    window.localStorage.setItem(SELECTED_LANGUAGE, languageOpts[0].value);
+  }
+  const selectedLanguage = window.localStorage.getItem(SELECTED_LANGUAGE);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -104,7 +110,7 @@ function AuthenticatedStack() {
       }}
     >
       <Stack.Screen
-        name="SettingView"
+        name={Label[selectedLanguage].settingView}
         component={SettingView}
         options={{
           headerRight: ({ tintColor }) => (
