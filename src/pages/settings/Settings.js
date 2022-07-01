@@ -5,7 +5,10 @@ function SettingView(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
-      <LanguageRadioButView />
+      <LanguageRadioButView
+        selectedLanguage={props.selectedLanguage}
+        setSelectedLanguage={props.setSelectedLanguage}
+      />
     </View>
   );
 }

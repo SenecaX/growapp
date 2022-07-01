@@ -100,7 +100,8 @@ function AuthenticatedStack() {
   if (!window.localStorage.getItem(SELECTED_LANGUAGE)) {
     window.localStorage.setItem(SELECTED_LANGUAGE, languageOpts[0].value);
   }
-  const selectedLanguage = window.localStorage.getItem(SELECTED_LANGUAGE);
+  const [selectedLanguage, setSelectedLanguage] = useState(window.localStorage.getItem(SELECTED_LANGUAGE));
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -111,7 +112,6 @@ function AuthenticatedStack() {
     >
       <Stack.Screen
         name={Label[selectedLanguage].settingView}
-        component={SettingView}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -122,7 +122,15 @@ function AuthenticatedStack() {
             />
           ),
         }}
-      />
+      >
+        {(props) =>
+          <SettingView
+            {...props}
+            selectedLanguage={selectedLanguage}
+            setSelectedLanguage={setSelectedLanguage}
+          />}
+      </Stack.Screen>
+
 
       <Stack.Screen
         name="Marking Home"

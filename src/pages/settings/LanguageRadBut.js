@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import RadioForm from 'react-native-simple-radio-button';
 import { languageOpts, SELECTED_LANGUAGE } from '../../constants/General';
@@ -6,17 +5,17 @@ import { Colors } from "../../constants/styles";
 import { Label } from '../../constants/Label';
 
 function LanguageRadioButView(props) {
-  const [selectedLanguage, setSelectedLanguage] = useState(window.localStorage.getItem(SELECTED_LANGUAGE));
-  const selectedLeagueIndex = languageOpts.findIndex(language => language.value === window.localStorage.getItem(SELECTED_LANGUAGE));
+  const selectedLeagueIndex = languageOpts.findIndex(language => language.value === props.selectedLanguage);
 
   function selectedLanguageOpts(value) {
     window.localStorage.setItem(SELECTED_LANGUAGE, value);
-    setSelectedLanguage(value);
+    props.setSelectedLanguage(value);
   }
 
   return (
-    <View>
-      <Text style={styles.title}>{Label[selectedLanguage].language}</Text>
+    < View >
+        { console.log(props) }
+      <Text style={styles.title}>{Label[props.selectedLanguage].language}</Text>
       <RadioForm
         radio_props={languageOpts}
         selectedButtonColor={Colors.primary500}
@@ -26,7 +25,7 @@ function LanguageRadioButView(props) {
           selectedLanguageOpts(value);
         }} //if the user changes options, set the new value
       />
-    </View>
+    </View >
   );
 }
 
