@@ -1,9 +1,11 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import LanguageRadioButView from './LanguageRadBut';
 
 function SettingView(props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
+      <LanguageRadioButView />
     </View>
   );
 }

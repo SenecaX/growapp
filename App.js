@@ -74,6 +74,7 @@ import ChooseWeekType from "./src/pages/ChooseWeekType";
 import TestPapers from "./src/pages/marking/TestPapers";
 import AddMarkingView from "./src/pages/marking/AddMarkingView";
 import ViewMarkingView from "./src/pages/marking/ViewMarkingView";
+import SettingView from './src/pages/Settings/Settings';
 
 const Stack = createNativeStackNavigator();
 
