@@ -26,6 +26,8 @@ function Diary(props) {
 
   let diary = props.route.params || props.route.params.diary;
 
+  console.log("diary :>> ", diary);
+
   let weekNumber = 0;
   let roomType = "No Data";
   let wateringType = "No Data";

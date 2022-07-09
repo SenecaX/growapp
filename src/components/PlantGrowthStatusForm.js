@@ -61,7 +61,7 @@ function PlantGrowthStatusForm({
   function submitHandler() {
     const data = {
       name: inputs.name.value,
-      week: inputs.week.value,
+      weekNum: inputs.week.value,
       lightSchedule: inputs.lightSchedule.value,
       pH: inputs.pH.value,
       airHumidity: inputs.airHumidity.value,
@@ -72,14 +72,22 @@ function PlantGrowthStatusForm({
     };
 
     const nameIsValid = data.name.length > 0;
-    const weekIsValid = data.week.length > 0;
-    const lightScheduleIsValid = data.lightSchedule.length > 0;
-    const pHIsValid = data.pH.length > 0;
-    const airHumidityIsValid = data.airHumidity.length > 0;
-    const potSizeIsValid = data.potSize.length > 0;
-    const wateringIsValid = data.watering.length > 0;
-    const vegetationLightsIsValid = data.vegetationLights.length > 0;
-    const floweringLightsIsValid = data.floweringLights.length > 0;
+    const weekIsValid = true;
+    // const lightScheduleIsValid = data.lightSchedule.length > 0;
+    // const pHIsValid = data.pH.length > 0;
+    // const airHumidityIsValid = data.airHumidity.length > 0;
+    // const potSizeIsValid = data.potSize.length > 0;
+    // const wateringIsValid = data.watering.length > 0;
+    // const vegetationLightsIsValid = data.vegetationLights.length > 0;
+    // const floweringLightsIsValid = data.floweringLights.length > 0;
+
+    const lightScheduleIsValid = true;
+    const pHIsValid = true;
+    const airHumidityIsValid = true;
+    const potSizeIsValid = true;
+    const wateringIsValid = true;
+    const vegetationLightsIsValid = true;
+    const floweringLightsIsValid = true;
 
     if (!nameIsValid) {
       setInputs((curInputs) => {
@@ -113,7 +121,7 @@ function PlantGrowthStatusForm({
       // return;
     }
 
-    diary.diary.week.push(data);
+    diary.diary.weeks.push(data);
 
     onSubmit(diary);
   }

@@ -74,9 +74,14 @@ import ChooseWeekType from "./src/pages/ChooseWeekType";
 import TestPapers from "./src/pages/marking/TestPapers";
 import AddMarkingView from "./src/pages/marking/AddMarkingView";
 import ViewMarkingView from "./src/pages/marking/ViewMarkingView";
-import SettingView from './src/pages/Settings/Settings';
-import { Label } from './src/constants/Label';
-import { languageOpts, themeOpts, SELECTED_LANGUAGE, SELECTED_THEME } from './src/constants/General';
+import SettingView from "./src/pages/Settings/Settings";
+import { Label } from "./src/constants/Label";
+import {
+  languageOpts,
+  themeOpts,
+  SELECTED_LANGUAGE,
+  SELECTED_THEME,
+} from "./src/constants/General";
 
 const Stack = createNativeStackNavigator();
 
@@ -104,12 +109,19 @@ function AuthenticatedStack() {
   }
   // insert default value for selected theme in local storage
   if (!window.localStorage.getItem(SELECTED_THEME)) {
-    window.localStorage.setItem(SELECTED_THEME, themeOpts[window.localStorage.getItem(SELECTED_LANGUAGE)][1].value);
+    window.localStorage.setItem(
+      SELECTED_THEME,
+      themeOpts[window.localStorage.getItem(SELECTED_LANGUAGE)][1].value
+    );
   }
   // define state for selected language
-  const [selectedLanguage, setSelectedLanguage] = useState(window.localStorage.getItem(SELECTED_LANGUAGE));
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    window.localStorage.getItem(SELECTED_LANGUAGE)
+  );
   // define state for selected theme
-  const [selectedTheme, setSelectedTheme] = useState(window.localStorage.getItem(SELECTED_THEME));
+  const [selectedTheme, setSelectedTheme] = useState(
+    window.localStorage.getItem(SELECTED_THEME)
+  );
 
   return (
     <Stack.Navigator
@@ -119,6 +131,21 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors[selectedTheme].background },
       }}
     >
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
       <Stack.Screen
         name={Label[selectedLanguage].settingView}
         options={{
@@ -132,14 +159,15 @@ function AuthenticatedStack() {
           ),
         }}
       >
-        {(props) =>
+        {(props) => (
           <SettingView
             {...props}
             selectedLanguage={selectedLanguage}
             setSelectedLanguage={setSelectedLanguage}
             selectedTheme={selectedTheme}
             setSelectedTheme={setSelectedTheme}
-          />}
+          />
+        )}
       </Stack.Screen>
 
       <Stack.Screen
@@ -205,21 +233,6 @@ function AuthenticatedStack() {
       <Stack.Screen
         name="ViewMarkingView"
         component={ViewMarkingView}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton

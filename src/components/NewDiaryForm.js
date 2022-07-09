@@ -3,7 +3,8 @@ import CustomInput from "../components/CustomInput";
 import { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 
-function NewDiaryForm({ onSubmit, onCancel, defaultValues }) {
+function NewDiaryForm({ onSubmit, onCancel, defaultValues, selectedWeek }) {
+  // console.log("selectedWeek :>> ", selectedWeek);
   const [inputs, setInputs] = useState({
     name: {
       value: defaultValues ? defaultValues.name : "",
@@ -69,7 +70,7 @@ function NewDiaryForm({ onSubmit, onCancel, defaultValues }) {
         wateringType: inputs.wateringType.value,
         mediumType: inputs.mediumType.value,
       },
-      week: [
+      weeks: [
         {
           weekNum: 0,
           type: "Ger",
@@ -90,8 +91,8 @@ function NewDiaryForm({ onSubmit, onCancel, defaultValues }) {
     const roomTypeIsValid = data.diaryInfo.roomType.value !== "";
     const wateringTypeIsValid = data.diaryInfo.wateringType.value !== "";
     const mediumTypeIsValid = data.diaryInfo.mediumType.value !== "";
-    const vegetationLightsIsValid = data.week[0].vegetationLights.value !== "";
-    const floweringLightsIsValid = data.week[0].floweringLights.value !== "";
+    const vegetationLightsIsValid = true;
+    const floweringLightsIsValid = true;
 
     if (!nameIsValid) {
       setInputs((curInputs) => {

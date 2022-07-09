@@ -5,6 +5,7 @@ import { post } from "../util/http";
 import { useNavigation } from "@react-navigation/native";
 
 function NewDiary(props) {
+  console.log("props :>> ", props);
   const navigation = useNavigation();
 
   async function confirmHandler(data) {

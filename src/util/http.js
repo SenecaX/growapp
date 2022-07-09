@@ -26,7 +26,7 @@ export async function getDiariesWidgetInfo() {
     const object = {
       id: key,
       title: response.data[key].diaryInfo.name,
-      week: "Week " + response.data[key].week.length,
+      week: "Week " + response.data[key].weeks.length,
       // imgSrc: require("../../assets/duck.jpeg"),
       key: response.data[key].diaryInfo.name,
       diaryInfo: {
@@ -36,7 +36,7 @@ export async function getDiariesWidgetInfo() {
         mediumType: response.data[key].diaryInfo.mediumType,
       },
 
-      week: populateWeek(response.data[key].week),
+      weeks: populateWeek(response.data[key].weeks),
 
       // week: [
       //   {
@@ -59,7 +59,7 @@ export async function getDiariesWidgetInfo() {
 
   function populateWeek(data) {
     let listOfWeeks = [];
-    data.filter((week) => {
+    data?.filter((week) => {
       listOfWeeks.push({
         weekNum: week.weekNum,
         type: week.type,
@@ -88,7 +88,7 @@ export async function getDiariesByKey(name) {
   for (const key in response.data) {
     const object = {
       title: response.data[key].diaryInfo.name,
-      week: "Week " + response.data[key].week.length,
+      week: "Week " + response.data[key].weeks.length,
       // imgSrc: require("../../assets/duck.jpeg"),
       key: response.data[key].diaryInfo.name,
     };
