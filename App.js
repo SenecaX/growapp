@@ -80,15 +80,13 @@ import { Label } from "./src/constants/Label";
 import {
   languageOpts,
   themeOpts,
-  SELECTED_LANGUAGE,
-  SELECTED_THEME,
 } from "./src/constants/General";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-function MyTabs() {
+function returnSettingsParam() {
   const [selectedLanguage, setSelectedLanguage] = useState(
     languageOpts[0].value
   );
@@ -96,7 +94,16 @@ function MyTabs() {
   const [selectedTheme, setSelectedTheme] = useState(
     themeOpts[selectedLanguage][0].value
   );
+  return {
+    selectedLanguage,
+    selectedTheme,
+    setSelectedLanguage,
+    setSelectedTheme,
+  }
+}
 
+function MyTabs(props) {
+  const { selectedLanguage, selectedTheme, setSelectedLanguage, setSelectedTheme } = returnSettingsParam();
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -116,21 +123,6 @@ function MyTabs() {
 
       <Tab.Screen
         name="Profile"
-        component={Profile}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name={Label[selectedLanguage].settingView}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -143,7 +135,7 @@ function MyTabs() {
         }}
       >
         {(props) => (
-          <SettingView
+          <Profile
             {...props}
             selectedLanguage={selectedLanguage}
             setSelectedLanguage={setSelectedLanguage}
@@ -151,7 +143,31 @@ function MyTabs() {
             setSelectedTheme={setSelectedTheme}
           />
         )}
-      </Tab.Screen>
+        </Tab.Screen>
+
+        <Tab.Screen
+          name={Label[selectedLanguage].settingView}
+          options={{
+            headerRight: ({ tintColor }) => (
+              <IconButton
+                icon="exit"
+                color={tintColor}
+                size={24}
+                onPress={authCtx.logout}
+              />
+            ),
+          }}
+        >
+          {(props) => (
+            <SettingView
+              {...props}
+              selectedLanguage={selectedLanguage}
+              setSelectedLanguage={setSelectedLanguage}
+              selectedTheme={selectedTheme}
+              setSelectedTheme={setSelectedTheme}
+            />
+          )}
+        </Tab.Screen>
     </Tab.Navigator>
   );
 }
@@ -173,6 +189,7 @@ function AuthStack() {
 
 function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
+  const { selectedLanguage, selectedTheme, setSelectedLanguage, setSelectedTheme } = returnSettingsParam();
 
   // // insert default value for selected language in local storage
   // if (!window.localStorage.getItem(SELECTED_LANGUAGE)) {
@@ -185,14 +202,7 @@ function AuthenticatedStack() {
   //     themeOpts[window.localStorage.getItem(SELECTED_LANGUAGE)][1].value
   //   );
   // }
-  // define state for selected language
-  const [selectedLanguage, setSelectedLanguage] = useState(
-    languageOpts[0].value
-  );
-  // define state for selected theme
-  const [selectedTheme, setSelectedTheme] = useState(
-    themeOpts[selectedLanguage][0].value
-  );
+
 
   return (
     <Stack.Navigator
