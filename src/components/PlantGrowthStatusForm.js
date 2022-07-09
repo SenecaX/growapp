@@ -9,6 +9,7 @@ function PlantGrowthStatusForm({
   onSubmit,
   diary,
   selectedWeek,
+  onCancel,
 } = props) {
   const [inputs, setInputs] = useState({
     name: {
@@ -163,7 +164,7 @@ function PlantGrowthStatusForm({
       // return;
     }
 
-    diary.diary.weeks.push(data);
+    diary.weeks.push(data);
 
     onSubmit(diary);
   }

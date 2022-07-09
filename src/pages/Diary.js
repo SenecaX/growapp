@@ -24,16 +24,24 @@ import { putNewWeek } from "../util/http";
 function Diary(props) {
   const navigation = useNavigation();
 
+
+  const diaryKey = props.route.params.diary;
+
+
+
   const diary = props.route.params || props.route.params.diary;
 
   const default_weekNumber = 0;
-  const roomType = props.route.params?.diaryInfo.roomType || "No Data";
-  const wateringType = props.route.params?.diaryInfo.wateringType || "No Data";
-  const mediumType = props.route.params?.diaryInfo.mediumType || "No Data";
-  const diaryWeek = diary.diaryInfo ? diary.weeks[default_weekNumber] : 0;
+  const roomType = props.route.params?.diaryInfo?.roomType || "No Data";
+  const wateringType = props.route.params?.diaryInfo?.wateringType || "No Data";
+  const mediumType = props.route.params?.diaryInfo?.mediumType || "No Data";
+  const diaryWeek = diary.diaryInfo ? diary.weeks[default_weekNumber] : {};
 
   let showBtns = props.route.params.showSubmitBtn === true ? true : false;
-  const [selectedWeek, setSelectedWeek] = useState(diary.weeks[default_weekNumber]);
+
+  console.log('s', diary);
+
+  const [selectedWeek, setSelectedWeek] = useState(diary.week ? diary.weeks[default_weekNumber] : diaryKey);
 
   useEffect(() => {
     async function getDiariesByName() {
@@ -46,6 +54,10 @@ function Diary(props) {
   function onSubmit(data) {
     const id = data.id;
     const res = putNewWeek(data.diary.id, data.diary);
+  }
+
+  function onCancel() {
+    props.navigation.goBack(null);
   }
 
   function _renderItem({ item, index }) {
@@ -67,7 +79,7 @@ function Diary(props) {
   }
 
   function getWeekNum(weekNum) {
-   }
+  }
 
   function goToNewWeekTypeScreen() {
     navigation.navigate("ChooseWeekType", diary);
@@ -151,6 +163,7 @@ function Diary(props) {
             showBtns={showBtns}
             diary={diary}
             onSubmit={onSubmit}
+            onCancel={onCancel}
             selectedWeek={selectedWeek}
           />
         </View>

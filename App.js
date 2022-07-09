@@ -143,31 +143,31 @@ function MyTabs(props) {
             setSelectedTheme={setSelectedTheme}
           />
         )}
-        </Tab.Screen>
+      </Tab.Screen>
 
-        <Tab.Screen
-          name={Label[selectedLanguage].settingView}
-          options={{
-            headerRight: ({ tintColor }) => (
-              <IconButton
-                icon="exit"
-                color={tintColor}
-                size={24}
-                onPress={authCtx.logout}
-              />
-            ),
-          }}
-        >
-          {(props) => (
-            <SettingView
-              {...props}
-              selectedLanguage={selectedLanguage}
-              setSelectedLanguage={setSelectedLanguage}
-              selectedTheme={selectedTheme}
-              setSelectedTheme={setSelectedTheme}
+      <Tab.Screen
+        name={Label[selectedLanguage].settingView}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
             />
-          )}
-        </Tab.Screen>
+          ),
+        }}
+      >
+        {(props) => (
+          <SettingView
+            {...props}
+            selectedLanguage={selectedLanguage}
+            setSelectedLanguage={setSelectedLanguage}
+            selectedTheme={selectedTheme}
+            setSelectedTheme={setSelectedTheme}
+          />
+        )}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
@@ -213,6 +213,30 @@ function AuthenticatedStack() {
       }}
     >
       <Stack.Screen name="MyTabs" component={MyTabs} />
+
+      {/* <Stack.Screen
+        name={Label[selectedLanguage].homeView}
+   
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      >
+        {props => {
+          <HomeScreen
+            {...props}
+            selectedLanguage={selectedLanguage}
+            selectedTheme={selectedTheme}
+      
+          />
+        }}
+      </Stack.Screen> */}
 
       <Stack.Screen
         name="Home"
@@ -423,7 +447,7 @@ function AuthenticatedStack() {
           ),
         }}
       />
-    </Stack.Navigator>
+    </Stack.Navigator >
   );
 }
 
