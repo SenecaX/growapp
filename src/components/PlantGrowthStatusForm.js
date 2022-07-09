@@ -49,12 +49,47 @@ function PlantGrowthStatusForm({
     },
   });
 
+  useEffect(() => {
+    setInputs({
+      name: {
+        value: selectedWeek.name || "",
+        isValid: true,
+      },
+      week: {
+        value: selectedWeek.weekNum || "",
+        isValid: true,
+      },
+      lightSchedule: {
+        value: selectedWeek.lightSchedule || "",
+        isValid: true,
+      },
+      pH: {
+        value: selectedWeek.pH || "",
+        isValid: true,
+      },
+      airHumidity: {
+        value: selectedWeek.airHumidity || "",
+        isValid: true,
+      },
+      potSize: {
+        value: selectedWeek.potSize || "",
+        isValid: true,
+      },
+      watering: {
+        value: selectedWeek.watering || "",
+        isValid: true,
+      },
+      vegetationLights: {
+        value: selectedWeek.vegetationLights || "",
+        isValid: true,
+      },
+      floweringLights: {
+        value: selectedWeek.floweringLights || "",
+        isValid: true,
+      },
+    });
 
-  // useEffect(() => {
-  //   setInputs(selectedWeek);
-
-  
-  // }, [selectedWeek]);
+  }, [selectedWeek]);
 
   function inputChangeHandler(inputIdentifier, enteredValue) {
     setInputs((curInputValues) => {
