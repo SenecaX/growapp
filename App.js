@@ -89,9 +89,17 @@ const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 function MyTabs() {
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    languageOpts[0].value
+  );
+  // define state for selected theme
+  const [selectedTheme, setSelectedTheme] = useState(
+    themeOpts[selectedLanguage][0].value
+  );
+
   return (
     <Tab.Navigator>
-      <Stack.Screen
+      <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
@@ -106,7 +114,7 @@ function MyTabs() {
         }}
       />
 
-      <Stack.Screen
+      <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
@@ -120,6 +128,30 @@ function MyTabs() {
           ),
         }}
       />
+
+      <Tab.Screen
+        name={Label[selectedLanguage].settingView}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      >
+        {(props) => (
+          <SettingView
+            {...props}
+            selectedLanguage={selectedLanguage}
+            setSelectedLanguage={setSelectedLanguage}
+            selectedTheme={selectedTheme}
+            setSelectedTheme={setSelectedTheme}
+          />
+        )}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
@@ -170,6 +202,7 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors[selectedTheme].background },
       }}
     >
+      <Stack.Screen name="MyTabs" component={MyTabs} />
 
       <Stack.Screen
         name="Home"
@@ -185,29 +218,6 @@ function AuthenticatedStack() {
           ),
         }}
       />
-      <Stack.Screen
-        name={Label[selectedLanguage].settingView}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      >
-        {(props) => (
-          <SettingView
-            {...props}
-            selectedLanguage={selectedLanguage}
-            setSelectedLanguage={setSelectedLanguage}
-            selectedTheme={selectedTheme}
-            setSelectedTheme={setSelectedTheme}
-          />
-        )}
-      </Stack.Screen>
 
       <Stack.Screen
         name="Marking Home"
