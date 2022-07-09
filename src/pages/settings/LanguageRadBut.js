@@ -8,7 +8,6 @@ function LanguageRadioButView(props) {
   const selectedLanguageIndex = languageOpts.findIndex(language => language.value === props.selectedLanguage);
 
   function selectedLanguageOpts(value) {
-    window.localStorage.setItem(SELECTED_LANGUAGE, value);
     props.setSelectedLanguage(value);
   }
 

@@ -1,19 +1,22 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { useEffect, useState } from "react";
 
-function WeekWidget({ getWeek, show, weekType, title } = props) {
-  const [selectedWeekNum, setSelectedWeekNum] = useState(0);
-
+function WeekWidget({ getWeek, show, weekType, title, weekOnPress } = props) {
   const plus = "+";
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   function getWeekNum() {
     return title;
   }
 
+  // on press week return selected week
+  function onWeekPress(title) {
+    weekOnPress(title);
+  }
+
   return (
-    <Pressable style={styles.container} getWeek={getWeekNum}>
+    <Pressable style={styles.container} getWeek={getWeekNum} key={title} onPress={() => onWeekPress(title)}>
       <View style={styles.elementAlign}>
         {!show && <Text style={styles.weekType}>{weekType}</Text>}
         {!show && <Text style={styles.title}>Week {title}</Text>}

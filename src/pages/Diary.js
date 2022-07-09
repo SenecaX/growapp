@@ -24,23 +24,16 @@ import { putNewWeek } from "../util/http";
 function Diary(props) {
   const navigation = useNavigation();
 
-  let diary = props.route.params || props.route.params.diary;
+  const diary = props.route.params || props.route.params.diary;
 
-  console.log("diary :>> ", diary);
-
-  let weekNumber = 0;
-  let roomType = "No Data";
-  let wateringType = "No Data";
-  let mediumType = "No Data";
-  let diaryWeek = diary.diaryInfo ? diary.week[weekNumber] : null;
-
-  if (props.route.params.diary) {
-    roomType = props.route.params.diary.diaryInfo.roomType;
-    wateringType = props.route.params.diary.diaryInfo.wateringType;
-    mediumType = props.route.params.diary.diaryInfo.mediumType;
-  }
+  const default_weekNumber = 0;
+  const roomType = props.route.params?.diaryInfo.roomType || "No Data";
+  const wateringType = props.route.params?.diaryInfo.wateringType || "No Data";
+  const mediumType = props.route.params?.diaryInfo.mediumType || "No Data";
+  const diaryWeek = diary.diaryInfo ? diary.weeks[default_weekNumber] : 0;
 
   let showBtns = props.route.params.showSubmitBtn === true ? true : false;
+  const [selectedWeek, setSelectedWeek] = useState(diary.weeks[default_weekNumber]);
 
   useEffect(() => {
     async function getDiariesByName() {
@@ -73,10 +66,15 @@ function Diary(props) {
     );
   }
 
-  function getWeekNum(weekNum) {}
+  function getWeekNum(weekNum) {
+   }
 
   function goToNewWeekTypeScreen() {
     navigation.navigate("ChooseWeekType", diary);
+  }
+
+  function weekOnPress(selectedWeekIndex) {
+    setSelectedWeek(diary.weeks[selectedWeekIndex]);
   }
 
   return (
@@ -122,18 +120,18 @@ function Diary(props) {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={diary.week}
-              renderItem={(itemData) => {
+              data={diary.weeks}
+              renderItem={(diaryWeek) => {
                 return (
                   <WeekWidget
-                    weekType={itemData.item.type}
-                    title={itemData.item.weekNum}
+                    weekType={diaryWeek.item.type}
+                    title={diaryWeek.item.weekNum}
                     getWeek={getWeekNum}
+                    weekOnPress={weekOnPress}
                   />
                 );
               }}
             />
-
             <View>
               <Pressable onPress={goToNewWeekTypeScreen}>
                 <View>
@@ -153,6 +151,7 @@ function Diary(props) {
             showBtns={showBtns}
             diary={diary}
             onSubmit={onSubmit}
+            selectedWeek={selectedWeek}
           />
         </View>
 
@@ -163,8 +162,8 @@ function Diary(props) {
             <CarouselCards />
           </SafeAreaView>
         </View>
-      </ScrollView>
-    </View>
+      </ScrollView >
+    </View >
   );
 }
 

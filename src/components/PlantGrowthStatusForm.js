@@ -1,53 +1,60 @@
 import { StyleSheet, View, Text, Button, ScrollView } from "react-native";
 import CustomInput from "../components/CustomInput";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { post } from "../util/http";
 
 function PlantGrowthStatusForm({
-  onSubmit,
-  onCancel,
   defaultValues,
   showBtns,
+  onSubmit,
   diary,
-}) {
+  selectedWeek,
+} = props) {
   const [inputs, setInputs] = useState({
     name: {
-      value: defaultValues ? defaultValues.typeName : "",
+      value: selectedWeek.name || "",
       isValid: true,
     },
     week: {
-      value: defaultValues ? defaultValues.weekNum : "",
+      value: selectedWeek.weekNum || "",
       isValid: true,
     },
     lightSchedule: {
-      value: defaultValues ? defaultValues.lightSchedule : "",
+      value: selectedWeek.lightSchedule || "",
       isValid: true,
     },
     pH: {
-      value: defaultValues ? defaultValues.pH : "",
+      value: selectedWeek.pH || "",
       isValid: true,
     },
     airHumidity: {
-      value: defaultValues ? defaultValues.airHumidity : "",
+      value: selectedWeek.airHumidity || "",
       isValid: true,
     },
     potSize: {
-      value: defaultValues ? defaultValues.potSize : "",
+      value: selectedWeek.potSize || "",
       isValid: true,
     },
     watering: {
-      value: defaultValues ? defaultValues.watering : "",
+      value: selectedWeek.watering || "",
       isValid: true,
     },
     vegetationLights: {
-      value: defaultValues ? defaultValues.vegetationLights : "",
+      value: selectedWeek.vegetationLights || "",
       isValid: true,
     },
     floweringLights: {
-      value: defaultValues ? defaultValues.floweringLights : "",
+      value: selectedWeek.floweringLights || "",
       isValid: true,
     },
   });
+
+
+  // useEffect(() => {
+  //   setInputs(selectedWeek);
+
+  
+  // }, [selectedWeek]);
 
   function inputChangeHandler(inputIdentifier, enteredValue) {
     setInputs((curInputValues) => {

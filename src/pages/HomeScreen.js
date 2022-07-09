@@ -21,7 +21,7 @@ import { useEffect } from "react";
 
 function HomeScreen() {
   const navigation = useNavigation();
-  const [diaries, setDiaries ] = useState([]);
+  const [diaries, setDiaries] = useState([]);
   const [filteredDiaries, setFilteredDiaries] = useState([]);
 
 

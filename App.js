@@ -74,7 +74,7 @@ import ChooseWeekType from "./src/pages/ChooseWeekType";
 import TestPapers from "./src/pages/marking/TestPapers";
 import AddMarkingView from "./src/pages/marking/AddMarkingView";
 import ViewMarkingView from "./src/pages/marking/ViewMarkingView";
-import SettingView from "./src/pages/Settings/Settings";
+import SettingView from "./src/pages/settings/Settings";
 import { Label } from "./src/constants/Label";
 import {
   languageOpts,
@@ -103,24 +103,24 @@ function AuthStack() {
 function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
 
-  // insert default value for selected language in local storage
-  if (!window.localStorage.getItem(SELECTED_LANGUAGE)) {
-    window.localStorage.setItem(SELECTED_LANGUAGE, languageOpts[0].value);
-  }
-  // insert default value for selected theme in local storage
-  if (!window.localStorage.getItem(SELECTED_THEME)) {
-    window.localStorage.setItem(
-      SELECTED_THEME,
-      themeOpts[window.localStorage.getItem(SELECTED_LANGUAGE)][1].value
-    );
-  }
+  // // insert default value for selected language in local storage
+  // if (!window.localStorage.getItem(SELECTED_LANGUAGE)) {
+  //   window.localStorage.setItem(SELECTED_LANGUAGE, languageOpts[0].value);
+  // }
+  // // insert default value for selected theme in local storage
+  // if (!window.localStorage.getItem(SELECTED_THEME)) {
+  //   window.localStorage.setItem(
+  //     SELECTED_THEME,
+  //     themeOpts[window.localStorage.getItem(SELECTED_LANGUAGE)][1].value
+  //   );
+  // }
   // define state for selected language
   const [selectedLanguage, setSelectedLanguage] = useState(
-    window.localStorage.getItem(SELECTED_LANGUAGE)
+    languageOpts[0].value
   );
   // define state for selected theme
   const [selectedTheme, setSelectedTheme] = useState(
-    window.localStorage.getItem(SELECTED_THEME)
+    themeOpts[selectedLanguage][0].value
   );
 
   return (
@@ -131,6 +131,7 @@ function AuthenticatedStack() {
         contentStyle: { backgroundColor: Colors[selectedTheme].background },
       }}
     >
+
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -145,7 +146,6 @@ function AuthenticatedStack() {
           ),
         }}
       />
-
       <Stack.Screen
         name={Label[selectedLanguage].settingView}
         options={{

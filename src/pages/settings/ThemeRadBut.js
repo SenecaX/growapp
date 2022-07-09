@@ -8,7 +8,6 @@ function ThemeRadioButView(props) {
   const selectedThemeIndex = themeOpts[props.selectedLanguage].findIndex(theme => theme.value === props.selectedTheme);
 
   function selectedThemeOpts(value) {
-    window.localStorage.setItem(SELECTED_THEME, value);
     props.setSelectedTheme(value);
   }
 
@@ -23,7 +22,6 @@ function ThemeRadioButView(props) {
 
   return (
     < View >
-      {console.log(Colors[props.selectedTheme].text)}
       <Text style={styles.title}>{Label[props.selectedLanguage].theme}</Text>
       <RadioForm
         radio_props={themeOpts[props.selectedLanguage]}
