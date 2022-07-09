@@ -71,6 +71,7 @@ import AddStudent from "./src/pages/marking/AddStudent";
 import MarkingView from "./src/pages/marking/MarkingView";
 import AnalyticsView from "./src/pages/marking/AnalyticsView";
 import ChooseWeekType from "./src/pages/ChooseWeekType";
+import Profile from "./src/pages/Profile.js";
 import TestPapers from "./src/pages/marking/TestPapers";
 import AddMarkingView from "./src/pages/marking/AddMarkingView";
 import ViewMarkingView from "./src/pages/marking/ViewMarkingView";
@@ -82,8 +83,46 @@ import {
   SELECTED_LANGUAGE,
   SELECTED_THEME,
 } from "./src/constants/General";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 const Stack = createNativeStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
+
+function MyTabs() {
+  return (
+    <Tab.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 function AuthStack() {
   return (
