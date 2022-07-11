@@ -18,8 +18,86 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { post, getDiariesWidgetInfo, getDiaries } from "../util/http";
 import { useEffect } from "react";
+import { Colors } from "../constants/styles";
 
-function HomeScreen() {
+function HomeScreen(props) {
+  const styles = StyleSheet.create({
+    inputContainer: {
+      paddingTop: 50,
+      backgroundColor: Colors[props.selectedTheme].background,
+      height: "100%",
+    },
+    sectionA: {
+      justifyContent: "center",
+      alignItems: "center",
+      marginBottom: 20,
+    },
+    subSectionA: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "100%",
+      paddingTop: 20,
+    },
+    customSearch: {
+      width: "100%",
+    },
+    subSectionB: {
+      height: "100%",
+    },
+    listItem: {
+      // marginHorizontal: 20,
+    },
+    diaryWidgetContainer: {
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      height: "100%",
+    },
+    centeredView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 22,
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 35,
+      alignItems: "center",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+    },
+    buttonOpen: {
+      backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+      backgroundColor: "#2196F3",
+    },
+    textStyle: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: "center",
+    },
+  });
+
   const navigation = useNavigation();
   const [diaries, setDiaries] = useState([]);
   const [filteredDiaries, setFilteredDiaries] = useState([]);
@@ -98,78 +176,3 @@ function HomeScreen() {
 }
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  inputContainer: {
-    paddingTop: 50,
-  },
-  sectionA: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  subSectionA: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    paddingTop: 20,
-  },
-  customSearch: {
-    width: "100%",
-  },
-  subSectionB: {
-    height: "100%",
-  },
-  listItem: {
-    // marginHorizontal: 20,
-  },
-  diaryWidgetContainer: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    height: "100%",
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
-});

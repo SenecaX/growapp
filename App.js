@@ -65,10 +65,8 @@ import Diary from "./src/pages/Diary";
 import NewDiary from "./src/pages/NewDiary";
 import Upload from "./src/components/Upload";
 import GermScreen from "./src/pages/GermScreen";
-import MarkingHome from "./src/pages/marking/MarkingHome";
 import AddClass from "./src/pages/marking/AddClass";
 import AddStudent from "./src/pages/marking/AddStudent";
-import MarkingView from "./src/pages/marking/MarkingView";
 import AnalyticsView from "./src/pages/marking/AnalyticsView";
 import ChooseWeekType from "./src/pages/ChooseWeekType";
 import Profile from "./src/pages/Profile.js";
@@ -107,8 +105,7 @@ function MyTabs(props) {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name={Label[selectedLanguage].homeView}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -119,7 +116,15 @@ function MyTabs(props) {
             />
           ),
         }}
-      />
+      >
+        {(props) => (
+          <HomeScreen
+            {...props}
+            selectedLanguage={selectedLanguage}
+            selectedTheme={selectedTheme}
+          />
+        )}
+      </Tab.Screen>
 
       <Tab.Screen
         name="Profile"
@@ -187,7 +192,7 @@ function AuthStack() {
   );
 }
 
-function AuthenticatedStack() {
+function AuthenticatedStack(props) {
   const authCtx = useContext(AuthContext);
   const { selectedLanguage, selectedTheme, setSelectedLanguage, setSelectedTheme } = returnSettingsParam();
 
@@ -214,9 +219,8 @@ function AuthenticatedStack() {
     >
       <Stack.Screen name="MyTabs" component={MyTabs} />
 
-      {/* <Stack.Screen
-        name={Label[selectedLanguage].homeView}
-   
+      <Stack.Screen
+        name={Label[selectedLanguage].newDiaryView}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -228,109 +232,18 @@ function AuthenticatedStack() {
           ),
         }}
       >
-        {props => {
-          <HomeScreen
+        {(props) => (
+          <NewDiary
             {...props}
             selectedLanguage={selectedLanguage}
             selectedTheme={selectedTheme}
-      
           />
-        }}
-      </Stack.Screen> */}
+        )}
+      </Stack.Screen>
 
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="Marking Home"
-        component={MarkingHome}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="MarkingView"
-        component={MarkingView}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="TestPapers"
-        component={TestPapers}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="AddMarkingView"
-        component={AddMarkingView}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="ViewMarkingView"
-        component={ViewMarkingView}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="NewDiary"
-        component={NewDiary}
+        name="Diary"
+        component={Diary}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -346,21 +259,6 @@ function AuthenticatedStack() {
       <Stack.Screen
         name="ChooseWeekType"
         component={ChooseWeekType}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="Diary"
-        component={Diary}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
